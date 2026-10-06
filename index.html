@@ -8,39 +8,49 @@
 
   <meta
     name="description"
-    content="Wayne Hosting 提供 Node.js、Python、Java 與 Minecraft 伺服器服務。"
+    content="Wayne Hosting 提供 Node.js、Python、Java 與 Minecraft 伺服器服務。簡單、可靠、容易管理。"
   >
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700;800;900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&family=Google+Sans+Text:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;600;700&display=swap"
     rel="stylesheet"
   >
 
   <style>
     :root {
-      --blue: #1769ff;
-      --blue-hover: #0757e8;
+      --blue: #1a73e8;
+      --blue-dark: #185abc;
+      --blue-light: #e8f0fe;
 
-      --black: #0a0d12;
-      --text: #11151c;
-      --muted: #697382;
+      --green: #188038;
+      --green-light: #e6f4ea;
 
-      --white: #ffffff;
-      --gray: #f5f7fa;
-      --gray-2: #eef1f5;
+      --yellow: #f9ab00;
+      --yellow-light: #fef7e0;
 
-      --line: #e4e8ee;
+      --red: #d93025;
+      --red-light: #fce8e6;
 
-      --max: 1200px;
+      --text: #202124;
+      --secondary: #5f6368;
+      --muted: #80868b;
+
+      --border: #dadce0;
+      --background: #fff;
+      --surface: #f8f9fa;
+      --surface-blue: #f8fbff;
+
+      --radius: 16px;
+      --radius-large: 28px;
+
+      --max-width: 1200px;
     }
 
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
     html {
@@ -48,16 +58,14 @@
     }
 
     body {
-      background: var(--white);
+      margin: 0;
+      background: var(--background);
       color: var(--text);
-
       font-family:
-        "Inter",
+        "Google Sans Text",
         "Noto Sans TC",
+        Arial,
         sans-serif;
-
-      line-height: 1.7;
-
       -webkit-font-smoothing: antialiased;
     }
 
@@ -66,952 +74,1217 @@
       text-decoration: none;
     }
 
-
-    /* =========================================================
-       GLOBAL
-    ========================================================= */
+    button {
+      font: inherit;
+    }
 
     .container {
-      width: min(
-        calc(100% - 48px),
-        var(--max)
-      );
-
+      width: min(var(--max-width), calc(100% - 48px));
       margin: 0 auto;
     }
 
-    .eyebrow {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-
-      color: var(--blue);
-
-      font-size: 11px;
-      font-weight: 700;
-
-      letter-spacing: .08em;
-    }
-
-    .eyebrow::before {
-      content: "";
-
-      width: 18px;
-      height: 2px;
-
-      background: var(--blue);
-    }
-
-    .section {
-      padding: 120px 0;
-    }
-
-
-    /* =========================================================
-       NAV
-    ========================================================= */
+    /* =========================
+       Header
+    ========================= */
 
     .header {
-      position: fixed;
-
+      position: sticky;
       top: 0;
-      left: 0;
-      right: 0;
-
-      z-index: 100;
-
-      height: 68px;
-
-      background: rgba(255,255,255,.82);
-
+      z-index: 1000;
+      height: 72px;
+      background: rgba(255, 255, 255, 0.96);
       border-bottom: 1px solid transparent;
-
-      backdrop-filter: blur(18px);
-
       transition:
-        background .25s ease,
-        border-color .25s ease;
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
     }
 
-    .header.active {
-      background: rgba(255,255,255,.96);
-      border-color: var(--line);
+    .header.scrolled {
+      border-bottom-color: var(--border);
+      box-shadow: 0 1px 3px rgba(60, 64, 67, 0.08);
     }
 
-    .nav {
+    .header-inner {
       height: 100%;
-
       display: flex;
       align-items: center;
+      gap: 32px;
     }
 
     .brand {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 10px;
-
-      font-size: 15px;
-      font-weight: 800;
-
-      letter-spacing: -.035em;
+      gap: 11px;
+      flex-shrink: 0;
+      font-family: "Google Sans", "Noto Sans TC", sans-serif;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.4px;
     }
 
-    .brand-symbol {
-      width: 29px;
-      height: 29px;
-
+    .brand-mark {
+      width: 31px;
+      height: 31px;
+      position: relative;
       display: grid;
       place-items: center;
-
-      background: var(--black);
+      border-radius: 50%;
+      font-size: 15px;
+      font-weight: 700;
       color: white;
-
-      border-radius: 3px;
-
-      font-size: 12px;
-      font-weight: 800;
+      background: var(--blue);
+      overflow: hidden;
     }
 
-    .nav-links {
+    .brand-mark::before,
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .brand-mark::before {
+      width: 11px;
+      height: 11px;
+      right: -2px;
+      top: -2px;
+      background: #fbbc04;
+      border-radius: 50%;
+    }
+
+    .brand-mark::after {
+      width: 9px;
+      height: 9px;
+      left: -2px;
+      bottom: -1px;
+      background: #34a853;
+      border-radius: 50%;
+    }
+
+    .brand-mark span {
+      position: relative;
+      z-index: 2;
+    }
+
+    .brand-divider {
+      width: 1px;
+      height: 28px;
+      background: var(--border);
+    }
+
+    .brand-product {
+      color: var(--secondary);
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    .nav {
       display: flex;
       align-items: center;
-      gap: 29px;
-
-      margin-left: auto;
-      margin-right: 28px;
-
-      color: #657080;
-
-      font-size: 12px;
-      font-weight: 500;
+      gap: 4px;
+      flex: 1;
     }
 
-    .nav-links a {
-      transition: color .18s ease;
+    .nav-link {
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 14px;
+      border-radius: 8px;
+      color: #3c4043;
+      font-size: 15px;
+      transition:
+        background 0.15s ease,
+        color 0.15s ease;
     }
 
-    .nav-links a:hover {
-      color: var(--blue);
+    .nav-link:hover {
+      background: #f1f3f4;
+      color: var(--text);
     }
 
-    .nav-cta {
-      height: 38px;
+    .nav-link svg {
+      width: 16px;
+      height: 16px;
+    }
 
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .icon-button {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 50%;
+      background: transparent;
+      color: #3c4043;
+      cursor: pointer;
+    }
+
+    .icon-button:hover {
+      background: #f1f3f4;
+    }
+
+    .icon-button svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .text-button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      height: 40px;
+      padding: 0 15px;
+      border-radius: 20px;
+      color: var(--blue);
+      font-size: 15px;
+      font-weight: 500;
+      transition: background 0.15s ease;
+    }
 
-      padding: 0 16px;
+    .text-button:hover {
+      background: var(--blue-light);
+    }
 
+    .primary-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px;
+      padding: 0 20px;
+      border: 1px solid var(--blue);
+      border-radius: 20px;
       background: var(--blue);
       color: white;
-
-      border-radius: 3px;
-
-      font-size: 11px;
-      font-weight: 700;
-
+      font-size: 15px;
+      font-weight: 500;
       transition:
-        background .18s ease,
-        transform .18s ease;
+        background 0.15s ease,
+        box-shadow 0.15s ease;
     }
 
-    .nav-cta:hover {
-      background: var(--blue-hover);
-      transform: translateY(-1px);
+    .primary-button:hover {
+      background: var(--blue-dark);
+      box-shadow: 0 1px 3px rgba(60, 64, 67, 0.25);
     }
 
+    .mobile-menu {
+      display: none;
+    }
 
-    /* =========================================================
-       HERO
-    ========================================================= */
+    /* =========================
+       Hero
+    ========================= */
 
     .hero {
-      min-height: 810px;
-
-      display: flex;
-      align-items: center;
-
-      padding-top: 68px;
-
-      overflow: hidden;
-
+      padding: 94px 0 100px;
       background:
         radial-gradient(
-          circle at 82% 25%,
-          rgba(23,105,255,.09),
-          transparent 30%
+          circle at 88% 30%,
+          rgba(66, 133, 244, 0.08),
+          transparent 26%
         ),
-        #ffffff;
+        linear-gradient(
+          180deg,
+          #fff 0%,
+          #fff 72%,
+          #f8fbff 100%
+        );
     }
 
     .hero-grid {
       display: grid;
-
-      grid-template-columns:
-        minmax(0, 1fr)
-        430px;
-
+      grid-template-columns: minmax(0, 1.04fr) minmax(420px, 0.96fr);
+      gap: 80px;
       align-items: center;
-
-      gap: 100px;
     }
 
-    .hero-copy {
-      max-width: 700px;
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 24px;
+      color: var(--blue);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
+
+    .eyebrow-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--blue);
     }
 
     .hero h1 {
-      margin-top: 25px;
-
-      font-size:
-        clamp(
-          54px,
-          7vw,
-          88px
-        );
-
-      line-height: 1.02;
-
-      letter-spacing: -.075em;
-
-      font-weight: 800;
+      max-width: 700px;
+      margin: 0;
+      font-family:
+        "Google Sans",
+        "Noto Sans TC",
+        sans-serif;
+      font-size: clamp(48px, 6vw, 72px);
+      line-height: 1.08;
+      letter-spacing: -2.8px;
+      font-weight: 500;
     }
 
-    .hero h1 span {
+    .hero h1 .blue {
       color: var(--blue);
     }
 
-    .hero-text {
-      max-width: 550px;
-
-      margin-top: 27px;
-
-      color: var(--muted);
-
-      font-size: 15px;
-
-      line-height: 1.95;
+    .hero-description {
+      max-width: 620px;
+      margin: 28px 0 0;
+      color: var(--secondary);
+      font-size: 19px;
+      line-height: 1.75;
     }
 
     .hero-actions {
       display: flex;
-      gap: 10px;
-
-      margin-top: 35px;
+      align-items: center;
+      gap: 25px;
+      margin-top: 34px;
     }
 
-    .button {
-      min-height: 47px;
-
+    .hero-link {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 9px;
-
-      padding: 0 20px;
-
-      border-radius: 3px;
-
-      font-size: 12px;
-      font-weight: 700;
-
-      transition:
-        transform .2s ease,
-        background .2s ease,
-        border-color .2s ease;
+      gap: 7px;
+      color: var(--blue);
+      font-size: 16px;
+      font-weight: 500;
     }
 
-    .button-primary {
-      background: var(--blue);
-      color: white;
+    .hero-link:hover {
+      text-decoration: underline;
     }
 
-    .button-primary:hover {
-      background: var(--blue-hover);
-      transform: translateY(-2px);
+    .hero-link svg {
+      width: 18px;
+      height: 18px;
+      transition: transform 0.15s ease;
     }
 
-    .button-secondary {
-      border: 1px solid var(--line);
-      background: white;
+    .hero-link:hover svg {
+      transform: translateX(3px);
     }
 
-    .button-secondary:hover {
-      border-color: #c9d1dc;
-      transform: translateY(-2px);
-    }
+    /* =========================
+       Google-like visual
+    ========================= */
 
-
-    /* =========================================================
-       BRAND VISUAL
-    ========================================================= */
-
-    .brand-visual {
+    .hero-visual {
       position: relative;
-
-      width: 430px;
-      height: 430px;
-
+      min-height: 460px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .brand-ring {
+    .cloud-shape {
       position: absolute;
-
-      width: 370px;
-      height: 370px;
-
-      border: 1px solid #dfe6ef;
-
+      width: 400px;
+      height: 290px;
       border-radius: 50%;
+      background: #e8f0fe;
+      filter: blur(1px);
+      transform: rotate(-8deg);
     }
 
-    .brand-ring::before {
+    .cloud-shape::before {
       content: "";
-
       position: absolute;
-
-      inset: 45px;
-
-      border: 1px solid #e9edf2;
-
+      width: 210px;
+      height: 210px;
+      top: -70px;
+      left: 72px;
       border-radius: 50%;
+      background: #f1f6ff;
     }
 
-    .brand-ring::after {
+    .cloud-shape::after {
       content: "";
-
       position: absolute;
-
-      width: 1px;
-      height: 100%;
-
-      left: 50%;
-      top: 0;
-
-      background: #e4e9f0;
+      width: 160px;
+      height: 160px;
+      right: 25px;
+      bottom: -35px;
+      border-radius: 50%;
+      background: #d2e3fc;
     }
 
-    .brand-center {
+    .console-card {
       position: relative;
       z-index: 2;
-
-      width: 230px;
-      height: 230px;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-
-      padding: 30px;
-
-      background: var(--black);
-      color: white;
-
-      box-shadow:
-        20px 20px 0 rgba(23,105,255,.10);
-    }
-
-    .brand-center-mark {
-      color: #82aaff;
-
-      font-size: 12px;
-      font-weight: 700;
-
-      letter-spacing: .15em;
-    }
-
-    .brand-center h2 {
-      margin-top: 14px;
-
-      font-size: 31px;
-      line-height: 1;
-
-      letter-spacing: -.06em;
-    }
-
-    .brand-center p {
-      margin-top: 14px;
-
-      color: #8994a5;
-
-      font-size: 11px;
-    }
-
-    .visual-label {
-      position: absolute;
-      z-index: 3;
-
-      padding: 10px 13px;
-
+      width: min(100%, 480px);
       background: white;
-
-      border: 1px solid var(--line);
-
+      border: 1px solid var(--border);
+      border-radius: 24px;
       box-shadow:
-        0 12px 30px rgba(10,13,18,.07);
-
-      font-size: 10px;
-      font-weight: 700;
+        0 1px 2px rgba(60, 64, 67, 0.1),
+        0 8px 24px rgba(60, 64, 67, 0.12);
+      overflow: hidden;
     }
 
-    .visual-label.one {
-      top: 55px;
-      right: 0;
+    .console-header {
+      height: 58px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 20px;
+      border-bottom: 1px solid #edf0f2;
     }
 
-    .visual-label.two {
-      bottom: 55px;
-      left: 0;
+    .console-dots {
+      display: flex;
+      gap: 5px;
     }
 
-
-    /* =========================================================
-       RUNTIME STRIP
-    ========================================================= */
-
-    .runtime-strip {
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
+    .console-dots span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
     }
+
+    .dot-blue {
+      background: #4285f4;
+    }
+
+    .dot-red {
+      background: #ea4335;
+    }
+
+    .dot-yellow {
+      background: #fbbc04;
+    }
+
+    .console-title {
+      margin-left: 7px;
+      color: var(--secondary);
+      font-size: 13px;
+    }
+
+    .console-body {
+      padding: 28px;
+    }
+
+    .console-heading {
+      margin-bottom: 23px;
+      font-family: "Google Sans", sans-serif;
+      font-size: 23px;
+      font-weight: 500;
+    }
+
+    .resource {
+      display: grid;
+      grid-template-columns: 42px 1fr auto;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 0;
+      border-bottom: 1px solid #f1f3f4;
+    }
+
+    .resource:last-child {
+      border-bottom: 0;
+    }
+
+    .resource-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+    }
+
+    .resource-icon svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .resource-icon.blue {
+      background: var(--blue-light);
+      color: var(--blue);
+    }
+
+    .resource-icon.green {
+      background: var(--green-light);
+      color: var(--green);
+    }
+
+    .resource-icon.yellow {
+      background: var(--yellow-light);
+      color: var(--yellow);
+    }
+
+    .resource-name {
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .resource-info {
+      margin-top: 4px;
+      color: var(--secondary);
+      font-size: 13px;
+    }
+
+    .resource-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--green);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    /* =========================
+       Search
+    ========================= */
+
+    .search-section {
+      padding: 0 0 80px;
+      background: #f8fbff;
+    }
+
+    .search-box {
+      position: relative;
+      width: min(760px, 100%);
+      margin: 0 auto;
+      transform: translateY(-20px);
+    }
+
+    .search-input {
+      width: 100%;
+      height: 64px;
+      padding: 0 62px 0 58px;
+      border: 1px solid #dadce0;
+      border-radius: 32px;
+      outline: none;
+      background: white;
+      color: var(--text);
+      font-size: 16px;
+      box-shadow:
+        0 1px 3px rgba(60, 64, 67, 0.12);
+      transition:
+        border-color 0.15s ease,
+        box-shadow 0.15s ease;
+    }
+
+    .search-input:hover {
+      box-shadow:
+        0 1px 6px rgba(32, 33, 36, 0.16);
+    }
+
+    .search-input:focus {
+      border-color: var(--blue);
+      box-shadow:
+        0 1px 6px rgba(26, 115, 232, 0.2);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 22px;
+      top: 22px;
+      width: 20px;
+      height: 20px;
+      color: var(--secondary);
+      pointer-events: none;
+    }
+
+    .search-hint {
+      position: absolute;
+      right: 20px;
+      top: 19px;
+      color: var(--muted);
+      font-size: 13px;
+      pointer-events: none;
+    }
+
+    /* =========================
+       Section
+    ========================= */
+
+    .section {
+      padding: 110px 0;
+    }
+
+    .section.gray {
+      background: var(--surface);
+    }
+
+    .section.blue-light {
+      background: var(--surface-blue);
+    }
+
+    .section-heading {
+      max-width: 720px;
+      margin-bottom: 52px;
+    }
+
+    .section-label {
+      margin-bottom: 15px;
+      color: var(--blue);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      font-family:
+        "Google Sans",
+        "Noto Sans TC",
+        sans-serif;
+      font-size: clamp(34px, 4vw, 48px);
+      line-height: 1.16;
+      letter-spacing: -1.4px;
+      font-weight: 500;
+    }
+
+    .section-heading p {
+      margin: 19px 0 0;
+      color: var(--secondary);
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    /* =========================
+       Runtime cards
+    ========================= */
 
     .runtime-grid {
       display: grid;
-
-      grid-template-columns:
-        repeat(4, 1fr);
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
     }
 
-    .runtime-item {
-      min-height: 105px;
+    .runtime-card {
+      min-height: 250px;
+      padding: 30px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: white;
+      transition:
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+    }
 
+    .runtime-card:hover {
+      transform: translateY(-3px);
+      box-shadow:
+        0 2px 8px rgba(60, 64, 67, 0.12),
+        0 8px 20px rgba(60, 64, 67, 0.08);
+    }
+
+    .runtime-icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 27px;
+      border-radius: 14px;
+    }
+
+    .runtime-icon svg {
+      width: 25px;
+      height: 25px;
+    }
+
+    .runtime-card:nth-child(1) .runtime-icon {
+      background: #e8f0fe;
+      color: #1a73e8;
+    }
+
+    .runtime-card:nth-child(2) .runtime-icon {
+      background: #e6f4ea;
+      color: #188038;
+    }
+
+    .runtime-card:nth-child(3) .runtime-icon {
+      background: #fef7e0;
+      color: #f29900;
+    }
+
+    .runtime-card:nth-child(4) .runtime-icon {
+      background: #fce8e6;
+      color: #d93025;
+    }
+
+    .runtime-card h3 {
+      margin: 0;
+      font-family: "Google Sans", sans-serif;
+      font-size: 22px;
+      font-weight: 500;
+    }
+
+    .runtime-card p {
+      margin: 12px 0 0;
+      color: var(--secondary);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 24px;
+      color: var(--blue);
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .card-link:hover {
+      text-decoration: underline;
+    }
+
+    /* =========================
+       Features
+    ========================= */
+
+    .feature {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 90px;
+      align-items: center;
+    }
+
+    .feature.reverse .feature-copy {
+      order: 2;
+    }
+
+    .feature.reverse .feature-visual {
+      order: 1;
+    }
+
+    .feature + .feature {
+      margin-top: 130px;
+    }
+
+    .feature-copy h2 {
+      margin: 0;
+      font-family: "Google Sans", sans-serif;
+      font-size: clamp(34px, 4vw, 48px);
+      line-height: 1.18;
+      letter-spacing: -1.5px;
+      font-weight: 500;
+    }
+
+    .feature-copy p {
+      margin: 22px 0 0;
+      color: var(--secondary);
+      font-size: 17px;
+      line-height: 1.75;
+    }
+
+    .feature-list {
+      display: grid;
+      gap: 18px;
+      margin-top: 32px;
+    }
+
+    .feature-list-item {
+      display: flex;
+      gap: 13px;
+      align-items: flex-start;
+    }
+
+    .check {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: var(--blue);
+    }
+
+    .feature-list-item span {
+      color: #3c4043;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .feature-visual {
+      min-height: 420px;
+      position: relative;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-
-      padding: 0 27px;
-
-      border-right: 1px solid var(--line);
+      justify-content: center;
     }
 
-    .runtime-item:first-child {
-      padding-left: 0;
-    }
-
-    .runtime-item:last-child {
-      border-right: 0;
-      padding-right: 0;
-    }
-
-    .runtime-name {
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .runtime-type {
-      color: #9aa4b2;
-
-      font-size: 10px;
-    }
-
-    .runtime-arrow {
-      color: var(--blue);
-
-      font-size: 16px;
-
-      transition:
-        transform .2s ease;
-    }
-
-    .runtime-item:hover .runtime-arrow {
-      transform: translateX(4px);
-    }
-
-
-    /* =========================================================
-       WHY
-    ========================================================= */
-
-    .why {
-      background: var(--gray);
-    }
-
-    .why-header {
-      max-width: 680px;
-    }
-
-    .why h2 {
-      margin-top: 18px;
-
-      font-size:
-        clamp(
-          38px,
-          5vw,
-          58px
-        );
-
-      line-height: 1.08;
-
-      letter-spacing: -.065em;
-    }
-
-    .why-description {
-      max-width: 580px;
-
-      margin-top: 20px;
-
-      color: var(--muted);
-
-      font-size: 14px;
-
-      line-height: 1.9;
-    }
-
-    .why-grid {
-      display: grid;
-
-      grid-template-columns:
-        1.3fr
-        1fr
-        1fr;
-
-      gap: 1px;
-
-      margin-top: 60px;
-
-      background: var(--line);
-
-      border: 1px solid var(--line);
-    }
-
-    .why-item {
-      min-height: 280px;
-
-      padding: 31px;
-
+    .illustration {
+      position: relative;
+      width: min(100%, 510px);
+      min-height: 360px;
+      border: 1px solid var(--border);
+      border-radius: 24px;
       background: white;
+      box-shadow:
+        0 1px 2px rgba(60, 64, 67, 0.08),
+        0 12px 30px rgba(60, 64, 67, 0.08);
+      overflow: hidden;
     }
 
-    .why-item.large {
-      background: var(--black);
-      color: white;
+    .illustration-top {
+      height: 54px;
+      display: flex;
+      align-items: center;
+      padding: 0 22px;
+      border-bottom: 1px solid #edf0f2;
+      color: var(--secondary);
+      font-size: 13px;
     }
 
-    .why-number {
-      color: #a1aab7;
-
-      font-size: 10px;
-      font-weight: 700;
+    .illustration-content {
+      padding: 26px;
     }
 
-    .why-item.large .why-number {
-      color: #6e96f5;
+    .metric-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 13px;
+      margin-bottom: 25px;
     }
 
-    .why-item h3 {
-      margin-top: 70px;
-
-      font-size: 22px;
-
-      letter-spacing: -.035em;
+    .metric {
+      padding: 18px;
+      border-radius: 14px;
+      background: #f8f9fa;
     }
 
-    .why-item p {
-      max-width: 310px;
-
-      margin-top: 11px;
-
-      color: var(--muted);
-
+    .metric-label {
+      color: var(--secondary);
       font-size: 12px;
-
-      line-height: 1.9;
     }
 
-    .why-item.large p {
-      color: #8d98a8;
+    .metric-value {
+      margin-top: 7px;
+      font-family: "Google Sans", sans-serif;
+      font-size: 22px;
     }
 
-
-    /* =========================================================
-       MANAGEMENT
-    ========================================================= */
-
-    .management {
-      padding: 125px 0;
+    .chart {
+      height: 160px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 14px;
+      background: #f8f9fa;
     }
 
-    .management-layout {
-      display: grid;
-
-      grid-template-columns:
-        .75fr
-        1.25fr;
-
-      gap: 100px;
-
-      align-items: center;
-    }
-
-    .management h2 {
-      margin-top: 18px;
-
-      font-size:
-        clamp(
-          37px,
-          4vw,
-          53px
+    .chart-grid {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(
+          to bottom,
+          transparent 24%,
+          #e8eaed 25%,
+          transparent 26%,
+          transparent 49%,
+          #e8eaed 50%,
+          transparent 51%,
+          transparent 74%,
+          #e8eaed 75%,
+          transparent 76%
         );
-
-      line-height: 1.1;
-
-      letter-spacing: -.06em;
     }
 
-    .management-copy p {
-      margin-top: 22px;
-
-      color: var(--muted);
-
-      font-size: 14px;
-
-      line-height: 1.9;
+    .chart-line {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 34px;
+      height: 90px;
+      border-top: 3px solid var(--blue);
+      transform: skewY(-12deg);
+      border-radius: 50%;
     }
 
-    .management-options {
-      border-top: 1px solid var(--line);
+    .chart-line::after {
+      content: "";
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      right: 14%;
+      top: -8px;
+      border-radius: 50%;
+      background: var(--blue);
+      box-shadow:
+        -120px 28px 0 #34a853,
+        -240px 15px 0 #fbbc04;
     }
 
-    .management-option {
+    /* =========================
+       Management
+    ========================= */
+
+    .management-grid {
       display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
 
-      grid-template-columns:
-        55px
-        1fr
-        auto;
-
-      align-items: center;
-
-      min-height: 125px;
-
-      border-bottom: 1px solid var(--line);
-
+    .management-card {
+      padding: 38px;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: white;
       transition:
-        padding .2s ease,
-        background .2s ease;
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
     }
 
-    .management-option:hover {
-      padding-left: 12px;
-      background: var(--gray);
+    .management-card:hover {
+      transform: translateY(-3px);
+      box-shadow:
+        0 4px 12px rgba(60, 64, 67, 0.1),
+        0 12px 28px rgba(60, 64, 67, 0.08);
     }
 
-    .management-number {
-      color: #9aa5b4;
-
-      font-size: 10px;
-      font-weight: 700;
+    .management-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
     }
 
-    .management-option h3 {
-      font-size: 19px;
-
-      letter-spacing: -.02em;
-    }
-
-    .management-option p {
-      margin-top: 3px;
-
-      color: var(--muted);
-
-      font-size: 11px;
-    }
-
-    .management-arrow {
+    .management-icon {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: var(--blue-light);
       color: var(--blue);
-
-      font-size: 18px;
     }
 
+    .management-icon svg {
+      width: 26px;
+      height: 26px;
+    }
 
-    /* =========================================================
-       STATUS
-    ========================================================= */
+    .management-brand span {
+      font-family: "Google Sans", sans-serif;
+      font-size: 22px;
+      font-weight: 500;
+    }
 
-    .status {
-      padding: 0 0 120px;
+    .management-card h3 {
+      margin: 0;
+      font-family: "Google Sans", sans-serif;
+      font-size: 28px;
+      font-weight: 500;
+    }
+
+    .management-card p {
+      margin: 14px 0 0;
+      color: var(--secondary);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .management-card .card-link {
+      margin-top: 28px;
+    }
+
+    /* =========================
+       Status
+    ========================= */
+
+    .status-section {
+      padding: 72px 0;
+      background: #f8f9fa;
+      border-top: 1px solid #edf0f2;
+      border-bottom: 1px solid #edf0f2;
     }
 
     .status-inner {
       display: flex;
-
       align-items: center;
       justify-content: space-between;
-
       gap: 30px;
-
-      padding: 32px 35px;
-
-      background: var(--black);
-
-      color: white;
     }
 
-    .status-info {
+    .status-left {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 17px;
     }
 
-    .status-dot {
-      width: 8px;
-      height: 8px;
-
-      background: #46d27d;
-
+    .status-large-dot {
+      width: 13px;
+      height: 13px;
       border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 5px var(--green-light);
     }
 
     .status-title {
-      font-size: 14px;
-      font-weight: 700;
+      font-family: "Google Sans", sans-serif;
+      font-size: 22px;
+      font-weight: 500;
     }
 
     .status-description {
-      margin-top: 2px;
-
-      color: #818d9e;
-
-      font-size: 10px;
+      margin-top: 4px;
+      color: var(--secondary);
+      font-size: 14px;
     }
 
-    .status-button {
+    .status-link {
       display: inline-flex;
       align-items: center;
-      gap: 9px;
-
-      min-height: 40px;
-
-      padding: 0 14px;
-
-      border: 1px solid rgba(255,255,255,.15);
-
-      font-size: 10px;
-      font-weight: 700;
-
-      transition: background .2s ease;
+      gap: 7px;
+      color: var(--blue);
+      font-size: 15px;
+      font-weight: 500;
     }
 
-    .status-button:hover {
-      background: rgba(255,255,255,.07);
+    .status-link:hover {
+      text-decoration: underline;
     }
 
-
-    /* =========================================================
+    /* =========================
        CTA
-    ========================================================= */
+    ========================= */
 
     .cta {
-      padding: 135px 0;
+      padding: 120px 0;
+      background: white;
+    }
 
-      border-top: 1px solid var(--line);
+    .cta-box {
+      position: relative;
+      overflow: hidden;
+      padding: 72px;
+      border-radius: 28px;
+      background: #e8f0fe;
+    }
 
-      background:
-        radial-gradient(
-          circle at 80% 60%,
-          rgba(23,105,255,.09),
-          transparent 30%
-        ),
-        #f7f9fc;
+    .cta-box::before {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      right: -50px;
+      top: -120px;
+      border-radius: 50%;
+      background: #d2e3fc;
+    }
+
+    .cta-box::after {
+      content: "";
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      right: 130px;
+      bottom: -90px;
+      border-radius: 50%;
+      background: #aecbfa;
     }
 
     .cta-content {
-      max-width: 850px;
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
     }
 
     .cta h2 {
-      margin-top: 18px;
-
-      font-size:
-        clamp(
-          45px,
-          7vw,
-          82px
-        );
-
-      line-height: 1.02;
-
-      letter-spacing: -.075em;
-    }
-
-    .cta h2 span {
-      color: var(--blue);
+      margin: 0;
+      font-family: "Google Sans", sans-serif;
+      font-size: clamp(36px, 5vw, 54px);
+      line-height: 1.15;
+      letter-spacing: -1.7px;
+      font-weight: 500;
     }
 
     .cta p {
-      max-width: 550px;
-
-      margin-top: 22px;
-
-      color: var(--muted);
-
-      font-size: 14px;
-
-      line-height: 1.9;
+      margin: 19px 0 0;
+      color: #3c4043;
+      font-size: 17px;
+      line-height: 1.7;
     }
 
     .cta-actions {
       display: flex;
-      gap: 10px;
-
-      margin-top: 33px;
+      align-items: center;
+      gap: 25px;
+      margin-top: 30px;
     }
 
-
-    /* =========================================================
-       FOOTER
-    ========================================================= */
+    /* =========================
+       Footer
+    ========================= */
 
     footer {
-      background: var(--black);
-      color: white;
+      border-top: 1px solid var(--border);
+      background: white;
     }
 
-    .footer-top {
+    .footer-main {
+      padding: 64px 0 58px;
+    }
+
+    .footer-grid {
       display: grid;
-
-      grid-template-columns:
-        1.5fr
-        1fr
-        1fr
-        1fr;
-
+      grid-template-columns: 1.5fr repeat(4, 1fr);
       gap: 50px;
-
-      padding: 65px 0;
     }
 
-    .footer-description {
+    .footer-brand {
       max-width: 280px;
-
-      margin-top: 17px;
-
-      color: #788495;
-
-      font-size: 11px;
-
-      line-height: 1.9;
     }
 
-    .footer-column h4 {
-      margin-bottom: 15px;
+    .footer-brand .brand {
+      margin-bottom: 18px;
+    }
 
-      color: #d5dbe4;
+    .footer-brand p {
+      margin: 0;
+      color: var(--secondary);
+      font-size: 14px;
+      line-height: 1.7;
+    }
 
-      font-size: 10px;
-      font-weight: 700;
-
-      letter-spacing: .1em;
-      text-transform: uppercase;
+    .footer-column h3 {
+      margin: 0 0 18px;
+      font-size: 14px;
+      font-weight: 600;
     }
 
     .footer-column a {
       display: block;
-
-      margin-bottom: 8px;
-
-      color: #778394;
-
-      font-size: 11px;
-
-      transition: color .18s ease;
+      width: fit-content;
+      margin: 12px 0;
+      color: var(--secondary);
+      font-size: 14px;
     }
 
     .footer-column a:hover {
-      color: white;
+      color: var(--blue);
+      text-decoration: underline;
     }
 
     .footer-bottom {
-      min-height: 68px;
+      border-top: 1px solid var(--border);
+      padding: 22px 0;
+    }
 
+    .footer-bottom-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-
-      border-top: 1px solid rgba(255,255,255,.08);
-
-      color: #5f6b7c;
-
-      font-size: 9px;
+      gap: 20px;
     }
 
+    .copyright {
+      color: var(--secondary);
+      font-size: 13px;
+    }
 
-    /* =========================================================
-       ANIMATION
-    ========================================================= */
+    .footer-bottom-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
 
-    .fade {
+    .footer-bottom-links a {
+      color: var(--secondary);
+      font-size: 13px;
+    }
+
+    .footer-bottom-links a:hover {
+      color: var(--blue);
+    }
+
+    /* =========================
+       Animation
+    ========================= */
+
+    .reveal {
       opacity: 0;
-
       transform: translateY(18px);
-
       transition:
-        opacity .7s ease,
-        transform .7s ease;
+        opacity 0.6s ease,
+        transform 0.6s ease;
     }
 
-    .fade.visible {
+    .reveal.visible {
       opacity: 1;
       transform: translateY(0);
     }
 
+    /* =========================
+       Responsive
+    ========================= */
 
-    /* =========================================================
-       RESPONSIVE
-    ========================================================= */
-
-    @media (max-width: 950px) {
-
-      .nav-links {
+    @media (max-width: 1050px) {
+      .nav {
         display: none;
       }
 
-      .hero {
-        min-height: auto;
+      .mobile-menu {
+        display: grid;
+        place-items: center;
+        width: 42px;
+        height: 42px;
+        border: 0;
+        border-radius: 50%;
+        background: transparent;
+        color: var(--text);
+      }
 
-        padding-top: 120px;
-        padding-bottom: 100px;
+      .mobile-menu:hover {
+        background: #f1f3f4;
       }
 
       .hero-grid {
         grid-template-columns: 1fr;
-
         gap: 55px;
       }
 
-      .brand-visual {
-        margin: 0 auto;
+      .hero-copy {
+        max-width: 800px;
       }
 
-      .management-layout {
+      .hero-visual {
+        min-height: 400px;
+      }
+
+      .runtime-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .feature {
         grid-template-columns: 1fr;
-
-        gap: 55px;
+        gap: 45px;
       }
 
-      .why-grid {
-        grid-template-columns: 1fr 1fr;
+      .feature.reverse .feature-copy,
+      .feature.reverse .feature-visual {
+        order: initial;
       }
 
-      .why-item.large {
-        grid-column: 1 / -1;
+      .feature + .feature {
+        margin-top: 90px;
       }
 
-      .footer-top {
-        grid-template-columns: 1fr 1fr;
+      .footer-grid {
+        grid-template-columns: repeat(3, 1fr);
       }
 
       .footer-brand {
@@ -1019,175 +1292,152 @@
       }
     }
 
-
-    @media (max-width: 650px) {
-
+    @media (max-width: 720px) {
       .container {
-        width: min(
-          calc(100% - 32px),
-          var(--max)
-        );
+        width: min(var(--max-width), calc(100% - 32px));
+      }
+
+      .header {
+        height: 64px;
+      }
+
+      .brand-divider,
+      .brand-product,
+      .header-actions .text-button {
+        display: none;
+      }
+
+      .header-inner {
+        gap: 10px;
+      }
+
+      .header-actions {
+        margin-left: auto;
+      }
+
+      .hero {
+        padding: 70px 0 80px;
       }
 
       .hero h1 {
-        font-size: 53px;
+        font-size: 45px;
+        letter-spacing: -2px;
       }
 
-      .hero-actions,
-      .cta-actions {
+      .hero-description {
+        font-size: 17px;
+      }
+
+      .hero-actions {
+        align-items: flex-start;
         flex-direction: column;
+        gap: 18px;
       }
 
-      .button {
+      .hero-visual {
+        min-height: 350px;
+      }
+
+      .cloud-shape {
+        width: 320px;
+        height: 230px;
+      }
+
+      .console-card {
         width: 100%;
       }
 
-      .brand-visual {
-        width: 100%;
-        height: 340px;
+      .console-body {
+        padding: 22px;
       }
 
-      .brand-ring {
-        width: 285px;
-        height: 285px;
+      .search-section {
+        padding-bottom: 50px;
       }
 
-      .brand-ring::before {
-        inset: 35px;
-      }
-
-      .brand-center {
-        width: 190px;
-        height: 190px;
-
-        padding: 24px;
-      }
-
-      .brand-center h2 {
-        font-size: 25px;
-      }
-
-      .visual-label.one {
-        right: 0;
-        top: 30px;
-      }
-
-      .visual-label.two {
-        left: 0;
-        bottom: 30px;
-      }
-
-      .runtime-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .runtime-item {
-        min-height: 90px;
-
-        padding: 0 15px;
-
-        border-bottom: 1px solid var(--line);
-      }
-
-      .runtime-item:first-child {
-        padding-left: 15px;
-      }
-
-      .runtime-item:nth-child(2) {
-        border-right: 0;
-      }
-
-      .runtime-item:nth-child(3),
-      .runtime-item:nth-child(4) {
-        border-bottom: 0;
-      }
-
-      .runtime-item:last-child {
-        padding-right: 15px;
+      .search-hint {
+        display: none;
       }
 
       .section {
-        padding: 90px 0;
+        padding: 78px 0;
       }
 
-      .why-grid {
+      .runtime-grid,
+      .management-grid {
         grid-template-columns: 1fr;
       }
 
-      .why-item.large {
-        grid-column: auto;
+      .feature-visual {
+        min-height: 340px;
       }
 
-      .why-item {
-        min-height: 240px;
+      .metric-row {
+        grid-template-columns: 1fr;
       }
 
-      .management-option {
-        grid-template-columns: 42px 1fr auto;
-      }
-
-      .status {
-        padding-bottom: 90px;
+      .chart {
+        height: 130px;
       }
 
       .status-inner {
         align-items: flex-start;
-
         flex-direction: column;
-
-        padding: 28px;
-      }
-
-      .status-button {
-        width: 100%;
-
-        justify-content: center;
       }
 
       .cta {
-        padding: 95px 0;
+        padding: 80px 0;
       }
 
-      .cta h2 {
-        font-size: 51px;
+      .cta-box {
+        padding: 42px 28px;
+        border-radius: 22px;
       }
 
-      .footer-top {
-        grid-template-columns: 1fr;
+      .cta-actions {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 35px 20px;
       }
 
       .footer-brand {
-        grid-column: auto;
+        grid-column: 1 / -1;
       }
 
-      .footer-bottom {
+      .footer-bottom-inner {
         align-items: flex-start;
-
         flex-direction: column;
-        justify-content: center;
+      }
 
-        gap: 5px;
-
-        padding: 18px 0;
+      .footer-bottom-links {
+        flex-wrap: wrap;
       }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-
-      html {
-        scroll-behavior: auto;
+    @media (max-width: 460px) {
+      .hero h1 {
+        font-size: 39px;
       }
 
-      *,
-      *::before,
-      *::after {
-        animation: none !important;
-        transition: none !important;
+      .console-header {
+        padding: 0 15px;
       }
 
-      .fade {
-        opacity: 1;
-        transform: none;
+      .resource {
+        grid-template-columns: 40px 1fr;
+      }
+
+      .resource-status {
+        display: none;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
       }
     }
   </style>
@@ -1195,637 +1445,942 @@
 
 <body>
 
-
-  <!-- =======================================================
-       HEADER
-  ======================================================== -->
-
+  <!-- Header -->
   <header class="header" id="header">
+    <div class="container header-inner">
 
-    <div class="container nav">
+      <a href="#" class="brand" aria-label="Wayne Hosting">
+        <span class="brand-mark">
+          <span>W</span>
+        </span>
 
-      <a href="#" class="brand">
-        <span class="brand-symbol">W</span>
         <span>Wayne Hosting</span>
+
+        <span class="brand-divider"></span>
+
+        <span class="brand-product">伺服器服務</span>
       </a>
 
-      <nav class="nav-links">
-
-        <a href="#services">
-          服務
+      <nav class="nav">
+        <a href="#services" class="nav-link">
+          產品
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="m6 9 6 6 6-6"/>
+          </svg>
         </a>
 
-        <a href="#why">
-          為什麼
+        <a href="#features" class="nav-link">
+          解決方案
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="m6 9 6 6 6-6"/>
+          </svg>
         </a>
 
-        <a href="#management">
-          管理
+        <a href="#management" class="nav-link">
+          資源
         </a>
 
-        <a href="#status">
-          狀態
-        </a>
-
-        <a
-          href="https://docs.wayne227304.dpdns.org"
-          target="_blank"
-        >
+        <a href="https://docs.wayne227304.dpdns.org/" class="nav-link">
           文件
         </a>
 
+        <a href="#status" class="nav-link">
+          系統狀態
+        </a>
       </nav>
 
-      <a
-        class="nav-cta"
-        href="https://discord.gg/QhjTkGBjkr"
-        target="_blank"
-      >
-        申請使用
-      </a>
-
-    </div>
-
-  </header>
-
-
-  <!-- =======================================================
-       HERO
-  ======================================================== -->
-
-  <section class="hero">
-
-    <div class="container hero-grid">
-
-      <div class="hero-copy fade">
-
-        <div class="eyebrow">
-          Wayne Hosting
-        </div>
-
-        <h1>
-          你的伺服器，<br>
-          <span>不需要很複雜。</span>
-        </h1>
-
-        <p class="hero-text">
-          從網站、API、Discord Bot 到 Minecraft，
-          Wayne Hosting 提供你需要的執行環境與管理工具，
-          讓專案可以直接開始。
-        </p>
-
-        <div class="hero-actions">
-
-          <a
-            href="https://discord.gg/QhjTkGBjkr"
-            target="_blank"
-            class="button button-primary"
-          >
-            申請使用
-            <span>→</span>
-          </a>
-
-          <a
-            href="https://docs.wayne227304.dpdns.org"
-            target="_blank"
-            class="button button-secondary"
-          >
-            查看文件
-          </a>
-
-        </div>
-
-      </div>
-
-
-      <div class="brand-visual fade">
-
-        <div class="brand-ring"></div>
-
-        <div class="visual-label one">
-          Node.js · Python
-        </div>
-
-        <div class="visual-label two">
-          Java · Minecraft
-        </div>
-
-        <div class="brand-center">
-
-          <div class="brand-center-mark">
-            WAYNE
-          </div>
-
-          <h2>
-            HOSTING
-          </h2>
-
-          <p>
-            Server hosting,<br>
-            without the unnecessary.
-          </p>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =======================================================
-       RUNTIMES
-  ======================================================== -->
-
-  <section class="runtime-strip" id="services">
-
-    <div class="container runtime-grid">
-
-      <a class="runtime-item" href="#services">
-
-        <div>
-          <div class="runtime-name">
-            Node.js
-          </div>
-
-          <div class="runtime-type">
-            JavaScript / TypeScript
-          </div>
-        </div>
-
-        <div class="runtime-arrow">
-          →
-        </div>
-
-      </a>
-
-
-      <a class="runtime-item" href="#services">
-
-        <div>
-          <div class="runtime-name">
-            Python
-          </div>
-
-          <div class="runtime-type">
-            Flask / FastAPI / Bot
-          </div>
-        </div>
-
-        <div class="runtime-arrow">
-          →
-        </div>
-
-      </a>
-
-
-      <a class="runtime-item" href="#services">
-
-        <div>
-          <div class="runtime-name">
-            Java
-          </div>
-
-          <div class="runtime-type">
-            Java Applications
-          </div>
-        </div>
-
-        <div class="runtime-arrow">
-          →
-        </div>
-
-      </a>
-
-
-      <a class="runtime-item" href="#services">
-
-        <div>
-          <div class="runtime-name">
-            Minecraft
-          </div>
-
-          <div class="runtime-type">
-            Server Hosting
-          </div>
-        </div>
-
-        <div class="runtime-arrow">
-          →
-        </div>
-
-      </a>
-
-    </div>
-
-  </section>
-
-
-  <!-- =======================================================
-       WHY WAYNE
-  ======================================================== -->
-
-  <section class="section why" id="why">
-
-    <div class="container">
-
-      <div class="why-header fade">
-
-        <div class="eyebrow">
-          Why Wayne
-        </div>
-
-        <h2>
-          把複雜的事情，<br>
-          留在伺服器裡。
-        </h2>
-
-        <p class="why-description">
-          你不需要先成為伺服器管理員，才能把自己的專案放上線。
-          我們把常用的環境與管理方式整理好，剩下的交給你。
-        </p>
-
-      </div>
-
-
-      <div class="why-grid fade">
-
-        <article class="why-item large">
-
-          <div class="why-number">
-            01
-          </div>
-
-          <h3>
-            直接使用
-          </h3>
-
-          <p>
-            選擇適合你的環境，
-            不需要為了基本的部署流程研究一堆設定。
-          </p>
-
-        </article>
-
-
-        <article class="why-item">
-
-          <div class="why-number">
-            02
-          </div>
-
-          <h3>
-            多種環境
-          </h3>
-
-          <p>
-            Node.js、Python、Java
-            與 Minecraft 都可以找到對應的環境。
-          </p>
-
-        </article>
-
-
-        <article class="why-item">
-
-          <div class="why-number">
-            03
-          </div>
-
-          <h3>
-            清楚管理
-          </h3>
-
-          <p>
-            使用熟悉的控制面板管理你的伺服器，
-            不需要自己從零打造管理介面。
-          </p>
-
-        </article>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =======================================================
-       MANAGEMENT
-  ======================================================== -->
-
-  <section class="section management" id="management">
-
-    <div class="container management-layout">
-
-      <div class="management-copy fade">
-
-        <div class="eyebrow">
-          Management
-        </div>
-
-        <h2>
-          你習慣哪種方式，<br>
-          就用哪種。
-        </h2>
-
-        <p>
-          Wayne Hosting 提供不同的控制面板，
-          讓你用自己熟悉的方式管理伺服器。
-        </p>
-
-      </div>
-
-
-      <div class="management-options fade">
-
-        <a
-          href="https://main.wayne227304.dpdns.org/"
-          target="_blank"
-          class="management-option"
-        >
-
-          <div class="management-number">
-            01
-          </div>
-
-          <div>
-
-            <h3>
-              MCSManager
-            </h3>
-
-            <p>
-              簡單，功能少的面板
-            </p>
-
-          </div>
-
-          <div class="management-arrow">
-            →
-          </div>
-
-        </a>
-
-
-        <a
-          href="https://panel.wayne227304.dpdns.org/"
-          target="_blank"
-          class="management-option"
-        >
-
-          <div class="management-number">
-            02
-          </div>
-
-          <div>
-
-            <h3>
-              Pterodactyl
-            </h3>
-
-            <p>
-              推薦使用此面板，功能多!
-            </p>
-
-          </div>
-
-          <div class="management-arrow">
-            →
-          </div>
-
-        </a>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =======================================================
-       STATUS
-  ======================================================== -->
-
-  <section class="status" id="status">
-
-    <div class="container">
-
-      <div class="status-inner fade">
-
-        <div class="status-info">
-
-          <span class="status-dot"></span>
-
-          <div>
-
-            <div class="status-title">
-              系統目前正常運作
-            </div>
-
-            <div class="status-description">
-              查看 Wayne Hosting 即時服務狀態
-            </div>
-
-          </div>
-
-        </div>
-
-        <a
-          href="https://stats.wayne227304.dpdns.org/status/default"
-          target="_blank"
-          class="status-button"
-        >
-          查看 Status Page
-          <span>→</span>
-        </a>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =======================================================
-       CTA
-  ======================================================== -->
-
-  <section class="cta">
-
-    <div class="container">
-
-      <div class="cta-content fade">
-
-        <div class="eyebrow">
-          Wayne Hosting
-        </div>
-
-        <h2>
-          有想法。<br>
-          <span>就讓它上線。</span>
-        </h2>
-
-        <p>
-          建立你的伺服器，選擇需要的環境，
-          然後開始你的下一個專案。
-        </p>
-
-        <div class="cta-actions">
-
-          <a
-            href="https://main.wayne227304.dpdns.org/"
-            target="_blank"
-            class="button button-primary"
-          >
-            開啟控制台
-            <span>→</span>
-          </a>
-
-          <a
-            href="https://discord.gg/QhjTkGBjkr"
-            target="_blank"
-            class="button button-secondary"
-          >
-            加入 Discord
-          </a>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =======================================================
-       FOOTER
-  ======================================================== -->
-
-  <footer>
-
-    <div class="container footer-top">
-
-      <div class="footer-brand">
-
-        <div class="brand">
-
-          <span class="brand-symbol">
-            W
-          </span>
-
-          <span>
-            Wayne Hosting
-          </span>
-
-        </div>
-
-        <p class="footer-description">
-          讓你的伺服器保持簡單，
-          讓你的專案專注於真正重要的事情。
-        </p>
-
-      </div>
-
-
-      <div class="footer-column">
-
-        <h4>
-          Platform
-        </h4>
-
-        <a
-          href="https://main.wayne227304.dpdns.org/"
-          target="_blank"
-        >
-          MCSManager
-        </a>
-
-        <a
-          href="https://panel.wayne227304.dpdns.org/"
-          target="_blank"
-        >
-          Pterodactyl
-        </a>
-
-        <a
-          href="https://stats.wayne227304.dpdns.org/status/default"
-          target="_blank"
-        >
-          Status
-        </a>
-
-      </div>
-
-
-      <div class="footer-column">
-
-        <h4>
-          Resources
-        </h4>
-
-        <a
-          href="https://docs.wayne227304.dpdns.org"
-          target="_blank"
-        >
-          文件
-        </a>
+      <div class="header-actions">
+
+        <button class="icon-button" aria-label="搜尋">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="6.5"/>
+            <path d="m16 16 5 5"/>
+          </svg>
+        </button>
 
         <a
           href="https://discord.gg/QhjTkGBjkr"
-          target="_blank"
+          class="text-button"
         >
-          Discord
+          社群
         </a>
 
         <a
-          href="https://wayne227304.qzz.io/"
-          target="_blank"
+          href="https://panel.wayne227304.dpdns.org/"
+          class="primary-button"
         >
-          服務條款
+          開始使用
         </a>
+
+        <button class="mobile-menu" aria-label="開啟選單">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 7h16M4 12h16M4 17h16"/>
+          </svg>
+        </button>
+
+      </div>
+    </div>
+  </header>
+
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container hero-grid">
+
+        <div class="hero-copy reveal">
+
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            Wayne Hosting
+          </div>
+
+          <h1>
+            你的伺服器，
+            <span class="blue">不需要很複雜。</span>
+          </h1>
+
+          <p class="hero-description">
+            為 Node.js、Python、Java 與 Minecraft
+            提供簡單可靠的伺服器環境。
+            從部署到管理，讓你把時間留給真正重要的事情。
+          </p>
+
+          <div class="hero-actions">
+
+            <a
+              href="https://panel.wayne227304.dpdns.org/"
+              class="primary-button"
+            >
+              開始使用
+            </a>
+
+            <a
+              href="https://docs.wayne227304.dpdns.org/"
+              class="hero-link"
+            >
+              查看文件
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14"/>
+                <path d="m13 6 6 6-6 6"/>
+              </svg>
+            </a>
+
+          </div>
+
+        </div>
+
+
+        <div class="hero-visual reveal">
+
+          <div class="cloud-shape"></div>
+
+          <div class="console-card">
+
+            <div class="console-header">
+
+              <div class="console-dots">
+                <span class="dot-blue"></span>
+                <span class="dot-red"></span>
+                <span class="dot-yellow"></span>
+              </div>
+
+              <span class="console-title">
+                Wayne Hosting Console
+              </span>
+
+            </div>
+
+            <div class="console-body">
+
+              <div class="console-heading">
+                你的服務
+              </div>
+
+              <div class="resource">
+
+                <div class="resource-icon blue">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 3v18"/>
+                    <path d="M3 12h18"/>
+                    <circle cx="12" cy="12" r="8"/>
+                  </svg>
+                </div>
+
+                <div>
+                  <div class="resource-name">
+                    Node.js Server
+                  </div>
+                  <div class="resource-info">
+                    node01.wayne227304.dpdns.org
+                  </div>
+                </div>
+
+                <div class="resource-status">
+                  <span class="status-dot"></span>
+                  運作中
+                </div>
+
+              </div>
+
+
+              <div class="resource">
+
+                <div class="resource-icon green">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 19V5"/>
+                    <path d="M4 19h16"/>
+                    <path d="m7 15 4-4 3 2 5-6"/>
+                  </svg>
+                </div>
+
+                <div>
+                  <div class="resource-name">
+                    Python Server
+                  </div>
+                  <div class="resource-info">
+                    Python 3.13
+                  </div>
+                </div>
+
+                <div class="resource-status">
+                  <span class="status-dot"></span>
+                  運作中
+                </div>
+
+              </div>
+
+
+              <div class="resource">
+
+                <div class="resource-icon yellow">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 4h14v16H5z"/>
+                    <path d="M9 8h6M9 12h6M9 16h3"/>
+                  </svg>
+                </div>
+
+                <div>
+                  <div class="resource-name">
+                    Minecraft
+                  </div>
+                  <div class="resource-info">
+                    Java Edition
+                  </div>
+                </div>
+
+                <div class="resource-status">
+                  <span class="status-dot"></span>
+                  運作中
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- Search -->
+    <section class="search-section">
+
+      <div class="container">
+
+        <div class="search-box">
+
+          <svg
+            class="search-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="11" cy="11" r="6.5"/>
+            <path d="m16 16 5 5"/>
+          </svg>
+
+          <input
+            class="search-input"
+            type="search"
+            placeholder="搜尋 Wayne Hosting 的服務、文件或資源"
+            aria-label="搜尋 Wayne Hosting"
+            id="siteSearch"
+          >
+
+          <span class="search-hint">
+            Search
+          </span>
+
+        </div>
 
       </div>
 
+    </section>
 
-      <div class="footer-column">
 
-        <h4>
-          Services
-        </h4>
+    <!-- Services -->
+    <section class="section gray" id="services">
 
-        <a href="#services">
-          Node.js
-        </a>
+      <div class="container">
 
-        <a href="#services">
-          Python
-        </a>
+        <div class="section-heading reveal">
 
-        <a href="#services">
-          Java
-        </a>
+          <div class="section-label">
+            執行環境
+          </div>
 
-        <a href="#services">
-          Minecraft
-        </a>
+          <h2>
+            為你的專案準備好需要的一切。
+          </h2>
+
+          <p>
+            不管你正在建立網站、Discord Bot、
+            API 或 Minecraft 伺服器，都可以從熟悉的環境開始。
+          </p>
+
+        </div>
+
+
+        <div class="runtime-grid">
+
+          <article class="runtime-card reveal">
+
+            <div class="runtime-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 3v18"/>
+                <path d="M3 12h18"/>
+                <circle cx="12" cy="12" r="8"/>
+              </svg>
+            </div>
+
+            <h3>Node.js</h3>
+
+            <p>
+              適合 API、網站、Discord Bot
+              與各種 JavaScript / TypeScript 專案。
+            </p>
+
+            <a href="#management" class="card-link">
+              了解更多 →
+            </a>
+
+          </article>
+
+
+          <article class="runtime-card reveal">
+
+            <div class="runtime-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 5c-2 1-3 3-3 5 0 3 2 5 5 5h6c3 0 5-2 5-5 0-2-1-4-3-5"/>
+                <path d="M8 9h.01M16 9h.01"/>
+                <path d="M9 19h6"/>
+              </svg>
+            </div>
+
+            <h3>Python</h3>
+
+            <p>
+              Flask、FastAPI、Discord Bot
+              或你的 Python 應用程式，都能快速啟動。
+            </p>
+
+            <a href="#management" class="card-link">
+              了解更多 →
+            </a>
+
+          </article>
+
+
+          <article class="runtime-card reveal">
+
+            <div class="runtime-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 4h14v16H5z"/>
+                <path d="M9 8h6M9 12h6M9 16h3"/>
+              </svg>
+            </div>
+
+            <h3>Java</h3>
+
+            <p>
+              適合 Java 應用程式、
+              Minecraft 與需要穩定執行環境的專案。
+            </p>
+
+            <a href="#management" class="card-link">
+              了解更多 →
+            </a>
+
+          </article>
+
+
+          <article class="runtime-card reveal">
+
+            <div class="runtime-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 6h16v12H4z"/>
+                <path d="M8 10h2M14 10h2M10 14h4"/>
+              </svg>
+            </div>
+
+            <h3>Minecraft</h3>
+
+            <p>
+              建立你的 Minecraft 世界，
+              並透過管理面板控制伺服器。
+            </p>
+
+            <a href="#management" class="card-link">
+              了解更多 →
+            </a>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- Features -->
+    <section class="section blue-light" id="features">
+
+      <div class="container">
+
+        <div class="feature">
+
+          <div class="feature-copy reveal">
+
+            <div class="section-label">
+              簡單管理
+            </div>
+
+            <h2>
+              從啟動到管理，
+              一個地方就夠了。
+            </h2>
+
+            <p>
+              不需要一直登入 SSH，也不用記住一堆指令。
+              使用管理面板即可控制你的伺服器與服務。
+            </p>
+
+            <div class="feature-list">
+
+              <div class="feature-list-item">
+                <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="m5 12 4 4L19 6"/>
+                </svg>
+                <span>清楚的伺服器資訊與狀態</span>
+              </div>
+
+              <div class="feature-list-item">
+                <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="m5 12 4 4L19 6"/>
+                </svg>
+                <span>方便的啟動、停止與重啟操作</span>
+              </div>
+
+              <div class="feature-list-item">
+                <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="m5 12 4 4L19 6"/>
+                </svg>
+                <span>集中查看伺服器資源使用情況</span>
+              </div>
+
+            </div>
+
+            <a
+              href="https://panel.wayne227304.dpdns.org/"
+              class="hero-link"
+              style="margin-top: 30px;"
+            >
+              開啟管理面板 →
+            </a>
+
+          </div>
+
+
+          <div class="feature-visual reveal">
+
+            <div class="illustration">
+
+              <div class="illustration-top">
+                Wayne Hosting / Overview
+              </div>
+
+              <div class="illustration-content">
+
+                <div class="metric-row">
+
+                  <div class="metric">
+                    <div class="metric-label">CPU</div>
+                    <div class="metric-value">32%</div>
+                  </div>
+
+                  <div class="metric">
+                    <div class="metric-label">Memory</div>
+                    <div class="metric-value">48%</div>
+                  </div>
+
+                  <div class="metric">
+                    <div class="metric-label">Status</div>
+                    <div class="metric-value">正常</div>
+                  </div>
+
+                </div>
+
+                <div class="chart">
+
+                  <div class="chart-grid"></div>
+                  <div class="chart-line"></div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="feature reverse">
+
+          <div class="feature-copy reveal">
+
+            <div class="section-label">
+              專為開發者打造
+            </div>
+
+            <h2>
+              你的程式碼，
+              不需要配合複雜的平台。
+            </h2>
+
+            <p>
+              選擇你熟悉的 Runtime，
+              部署你的專案，然後專心寫程式。
+            </p>
+
+            <a
+              href="https://docs.wayne227304.dpdns.org/"
+              class="hero-link"
+              style="margin-top: 30px;"
+            >
+              閱讀文件 →
+            </a>
+
+          </div>
+
+
+          <div class="feature-visual reveal">
+
+            <div class="illustration">
+
+              <div class="illustration-top">
+                Project / Runtime
+              </div>
+
+              <div class="illustration-content">
+
+                <div
+                  style="
+                    padding: 22px;
+                    border: 1px solid #dadce0;
+                    border-radius: 14px;
+                    background: #fff;
+                  "
+                >
+
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      justify-content: space-between;
+                      margin-bottom: 22px;
+                    "
+                  >
+                    <span
+                      style="
+                        font-family: 'Google Sans', sans-serif;
+                        font-size: 20px;
+                        font-weight: 500;
+                      "
+                    >
+                      my-project
+                    </span>
+
+                    <span
+                      style="
+                        display: flex;
+                        align-items: center;
+                        gap: 7px;
+                        color: #188038;
+                        font-size: 13px;
+                      "
+                    >
+                      <span
+                        style="
+                          width: 7px;
+                          height: 7px;
+                          border-radius: 50%;
+                          background: #188038;
+                        "
+                      ></span>
+                      Running
+                    </span>
+                  </div>
+
+                  <div
+                    style="
+                      padding: 15px;
+                      border-radius: 10px;
+                      background: #f8f9fa;
+                      font-family: monospace;
+                      font-size: 13px;
+                      color: #3c4043;
+                      line-height: 1.8;
+                    "
+                  >
+                    $ npm start<br>
+                    <span style="color:#188038;">
+                      Server running on port 3000
+                    </span>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- Management -->
+    <section class="section" id="management">
+
+      <div class="container">
+
+        <div class="section-heading reveal">
+
+          <div class="section-label">
+            管理工具
+          </div>
+
+          <h2>
+            使用你熟悉的工具。
+          </h2>
+
+          <p>
+            Wayne Hosting 提供常見的伺服器管理方式，
+            讓你可以按照自己的習慣管理服務。
+          </p>
+
+        </div>
+
+
+        <div class="management-grid">
+
+          <article class="management-card reveal">
+
+            <div class="management-brand">
+
+              <div class="management-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="4" y="4" width="16" height="16" rx="2"/>
+                  <path d="M8 8h8M8 12h8M8 16h5"/>
+                </svg>
+              </div>
+
+              <span>MCSManager</span>
+
+            </div>
+
+            <h3>
+              Minecraft 伺服器管理
+            </h3>
+
+            <p>
+              管理 Minecraft 伺服器、
+              主控台、檔案與多個實例，
+              將日常管理集中在一個地方。
+            </p>
+
+            <a
+              href="https://docs.wayne227304.dpdns.org/"
+              class="card-link"
+            >
+              查看文件 →
+            </a>
+
+          </article>
+
+
+          <article class="management-card reveal">
+
+            <div class="management-brand">
+
+              <div class="management-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 7h16"/>
+                  <path d="M4 12h16"/>
+                  <path d="M4 17h16"/>
+                  <circle cx="8" cy="7" r="1.5"/>
+                  <circle cx="14" cy="12" r="1.5"/>
+                  <circle cx="10" cy="17" r="1.5"/>
+                </svg>
+              </div>
+
+              <span>Pterodactyl</span>
+
+            </div>
+
+            <h3>
+              更完整的伺服器控制
+            </h3>
+
+            <p>
+              提供伺服器資源、
+              檔案、主控台與使用者管理，
+              適合需要完整控制能力的專案。
+            </p>
+
+            <a
+              href="https://panel.wayne227304.dpdns.org/"
+              class="card-link"
+            >
+              開啟控制台 →
+            </a>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- Status -->
+    <section class="status-section" id="status">
+
+      <div class="container">
+
+        <div class="status-inner">
+
+          <div class="status-left">
+
+            <span class="status-large-dot"></span>
+
+            <div>
+              <div class="status-title">
+                所有系統正常運作
+              </div>
+
+              <div class="status-description">
+                查看 Wayne Hosting 的即時服務狀態。
+              </div>
+            </div>
+
+          </div>
+
+          <a
+            href="https://stats.wayne227304.dpdns.org/status/default"
+            class="status-link"
+          >
+            查看系統狀態 →
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CTA -->
+    <section class="cta">
+
+      <div class="container">
+
+        <div class="cta-box reveal">
+
+          <div class="cta-content">
+
+            <h2>
+              準備好讓你的專案上線了嗎？
+            </h2>
+
+            <p>
+              選擇你的執行環境，
+              建立伺服器，然後開始建立你的下一個專案。
+            </p>
+
+            <div class="cta-actions">
+
+              <a
+                href="https://panel.wayne227304.dpdns.org/"
+                class="primary-button"
+              >
+                開始使用
+              </a>
+
+              <a
+                href="https://discord.gg/QhjTkGBjkr"
+                class="hero-link"
+              >
+                加入 Discord 社群 →
+              </a>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- Footer -->
+  <footer>
+
+    <div class="container footer-main">
+
+      <div class="footer-grid">
+
+        <div class="footer-brand">
+
+          <a href="#" class="brand">
+
+            <span class="brand-mark">
+              <span>W</span>
+            </span>
+
+            <span>Wayne Hosting</span>
+
+          </a>
+
+          <p>
+            你的伺服器，不需要很複雜。
+            為開發者提供簡單可靠的伺服器服務。
+          </p>
+
+        </div>
+
+
+        <div class="footer-column">
+
+          <h3>產品</h3>
+
+          <a href="#services">Node.js</a>
+          <a href="#services">Python</a>
+          <a href="#services">Java</a>
+          <a href="#services">Minecraft</a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+          <h3>資源</h3>
+
+          <a href="https://docs.wayne227304.dpdns.org/">
+            文件
+          </a>
+
+          <a href="https://stats.wayne227304.dpdns.org/status/default">
+            系統狀態
+          </a>
+
+          <a href="https://discord.gg/QhjTkGBjkr">
+            Discord
+          </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+          <h3>管理</h3>
+
+          <a href="https://panel.wayne227304.dpdns.org/">
+            Pterodactyl
+          </a>
+
+          <a href="#management">
+            MCSManager
+          </a>
+
+          <a href="https://docs.wayne227304.dpdns.org/">
+            管理文件
+          </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+          <h3>Wayne Hosting</h3>
+
+          <a href="https://main.wayne227304.dpdns.org/">
+            官方網站
+          </a>
+
+          <a href="https://discord.gg/QhjTkGBjkr">
+            社群
+          </a>
+
+          <a href="https://wayne227304.qzz.io/">
+            服務條款
+          </a>
+
+        </div>
 
       </div>
 
     </div>
 
 
-    <div class="container footer-bottom">
+    <div class="footer-bottom">
 
-      <span>
-        © 2026 Wayne Hosting
-      </span>
+      <div class="container footer-bottom-inner">
 
-      <span>
-        Server hosting, without the unnecessary.
-      </span>
+        <div class="copyright">
+          © 2026 Wayne Hosting. All rights reserved.
+        </div>
+
+        <div class="footer-bottom-links">
+
+          <a href="https://wayne227304.qzz.io/">
+            隱私權與條款
+          </a>
+
+          <a href="https://discord.gg/QhjTkGBjkr">
+            聯絡我們
+          </a>
+
+        </div>
+
+      </div>
 
     </div>
 
@@ -1833,113 +2388,106 @@
 
 
   <script>
+    const header = document.getElementById("header");
 
-    /*
-     * Header
-     */
-
-    const header =
-      document.getElementById("header");
-
-    function updateHeader() {
-
-      if (window.scrollY > 20) {
-        header.classList.add("active");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 8) {
+        header.classList.add("scrolled");
       } else {
-        header.classList.remove("active");
+        header.classList.remove("scrolled");
       }
+    });
 
-    }
 
-    window.addEventListener(
-      "scroll",
-      updateHeader,
-      { passive: true }
+    const revealElements = document.querySelectorAll(".reveal");
+
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.12
+      }
     );
 
-    updateHeader();
+    revealElements.forEach(element => {
+      observer.observe(element);
+    });
 
 
-    /*
-     * Scroll reveal
-     */
+    const searchInput = document.getElementById("siteSearch");
 
-    const observer =
-      new IntersectionObserver(
-        entries => {
+    if (searchInput) {
+      searchInput.addEventListener("keydown", event => {
 
-          entries.forEach(entry => {
-
-            if (
-              entry.isIntersecting
-            ) {
-
-              entry.target.classList.add(
-                "visible"
-              );
-
-              observer.unobserve(
-                entry.target
-              );
-
-            }
-
-          });
-
-        },
-        {
-          threshold: .12
+        if (event.key !== "Enter") {
+          return;
         }
-      );
 
+        const value = searchInput.value.trim().toLowerCase();
 
-    document
-      .querySelectorAll(".fade")
-      .forEach(element => {
+        if (!value) {
+          return;
+        }
 
-        observer.observe(element);
-
-      });
-
-
-    /*
-     * Internal links
-     */
-
-    document
-      .querySelectorAll('a[href^="#"]')
-      .forEach(link => {
-
-        link.addEventListener(
-          "click",
-          event => {
-
-            const id =
-              link.getAttribute("href");
-
-            if (id === "#") {
-              return;
-            }
-
-            const target =
-              document.querySelector(id);
-
-            if (!target) {
-              return;
-            }
-
-            event.preventDefault();
-
-            target.scrollIntoView({
-              behavior: "smooth",
-              block: "start"
-            });
-
+        const mappings = [
+          {
+            keywords: ["node", "nodejs", "javascript"],
+            target: "#services"
+          },
+          {
+            keywords: ["python"],
+            target: "#services"
+          },
+          {
+            keywords: ["java"],
+            target: "#services"
+          },
+          {
+            keywords: ["minecraft", "mc"],
+            target: "#services"
+          },
+          {
+            keywords: ["mcsmanager"],
+            target: "#management"
+          },
+          {
+            keywords: ["pterodactyl", "panel"],
+            target: "#management"
+          },
+          {
+            keywords: ["status", "狀態"],
+            target: "#status"
+          },
+          {
+            keywords: ["管理", "server"],
+            target: "#management"
           }
+        ];
+
+        const match = mappings.find(item =>
+          item.keywords.some(keyword =>
+            value.includes(keyword)
+          )
         );
 
-      });
+        if (match) {
+          document.querySelector(match.target)?.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        } else {
+          window.location.href =
+            "https://docs.wayne227304.dpdns.org/";
+        }
 
+      });
+    }
   </script>
 
 </body>
