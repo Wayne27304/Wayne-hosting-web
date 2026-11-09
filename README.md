@@ -1,2 +1,1 @@
-# Wayne-hosting-web
-https://wayne227304.dpdns.org/
+這裡只有WayHost的官網
