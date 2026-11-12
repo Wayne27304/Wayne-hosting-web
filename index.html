@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
     <script>
         tailwind.config = {
@@ -45,7 +45,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Apple Clean Subtle Border Shadow */
         .subtle-card {
             background: #ffffff;
             border: 1px solid #e2e8f0;
@@ -58,7 +57,6 @@
             box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.05);
         }
 
-        /* Clean Monospace Terminal Block */
         .code-container {
             background-color: #0f172a;
             color: #f8fafc;
@@ -68,10 +66,10 @@
 <body class="bg-white text-slate-900 min-h-screen flex flex-col selection:bg-slate-900 selection:text-white">
 
     <!-- TOP ANNOUNCEMENT BAR -->
-    <div class="bg-slate-900 text-slate-300 text-xs py-2 px-4 text-center font-medium border-b border-slate-800 flex items-center justify-center gap-2">
+    <div class="bg-slate-900 text-slate-300 text-xs py-2 px-4 text-center font-medium border-b border-slate-800 flex flex-wrap items-center justify-center gap-2">
         <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-mono text-[11px] border border-emerald-500/20 font-semibold">100% FREE</span>
-        <span>無需信用卡，永久免費使用</span>
-        <a href="https://panel.wayne227304.dpdns.org/go/discord" target="_blank" class="underline text-white hover:text-slate-200 ml-1 font-semibold">加入 Discord 開服 &rarr;</a>
+        <span data-i18n="top_banner_text">無需信用卡，永久免費使用</span>
+        <a href="https://panel.wayne227304.dpdns.org/go/discord" target="_blank" class="underline text-white hover:text-slate-200 ml-1 font-semibold" data-i18n="top_banner_cta">加入 Discord 開服 &rarr;</a>
     </div>
 
     <!-- NAVIGATION -->
@@ -88,23 +86,35 @@
 
             <!-- Nav Links -->
             <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
-                <a href="#nodes" class="hover:text-slate-900 transition-colors">可用節點</a>
-                <a href="#runtimes" class="hover:text-slate-900 transition-colors">支援環境</a>
-                <a href="#features" class="hover:text-slate-900 transition-colors">服務特色</a>
-                <a href="#faq" class="hover:text-slate-900 transition-colors">常見問題</a>
+                <a href="#nodes" class="hover:text-slate-900 transition-colors" data-i18n="nav_nodes">可用節點</a>
+                <a href="#runtimes" class="hover:text-slate-900 transition-colors" data-i18n="nav_runtimes">支援環境</a>
+                <a href="#features" class="hover:text-slate-900 transition-colors" data-i18n="nav_features">服務特色</a>
+                <a href="#faq" class="hover:text-slate-900 transition-colors" data-i18n="nav_faq">常見問題</a>
             </nav>
 
-            <!-- CTA Links -->
-            <div class="flex items-center gap-3">
+            <!-- CTA & Language Switcher -->
+            <div class="flex items-center gap-2.5">
+                <!-- Language Selector -->
+                <div class="relative inline-flex items-center">
+                    <i class="fa-solid fa-globe text-slate-400 text-xs absolute left-2.5 pointer-events-none"></i>
+                    <select id="lang-select" onchange="changeLanguage(this.value)" aria-label="Language"
+                            class="appearance-none pl-7 pr-6 py-1.5 rounded-lg text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-900/10 cursor-pointer transition-colors">
+                        <option value="zh-TW">繁體中文</option>
+                        <option value="zh-CN">简体中文</option>
+                        <option value="en">English</option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down text-[9px] text-slate-400 absolute right-2 pointer-events-none"></i>
+                </div>
+
                 <a href="https://panel.wayne227304.dpdns.org/go/discord" target="_blank" rel="noopener noreferrer"
                    class="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 transition-all border border-slate-200">
                     <i class="fa-brands fa-discord text-indigo-600"></i>
-                    <span>Discord 社群</span>
+                    <span data-i18n="nav_discord">Discord 社群</span>
                 </a>
                 
                 <a href="https://panel.wayne227304.dpdns.org/go/discord" target="_blank" rel="noopener noreferrer"
                    class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 transition-all shadow-sm active:scale-95">
-                    <span>立即建立伺服器</span>
+                    <span data-i18n="nav_create">立即建立伺服器</span>
                     <i class="fa-solid fa-arrow-right text-[10px]"></i>
                 </a>
             </div>
@@ -118,31 +128,35 @@
             
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-slate-200 text-xs font-medium text-slate-600 mb-6 shadow-sm">
                 <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                <span>系統正常運作</span>
+                <span data-i18n="hero_status">系統正常運作</span>
                 <span class="text-slate-300">|</span>
                 <span class="font-mono text-slate-900 font-semibold">Taiwan • US • Malaysia</span>
             </div>
 
             <h1 class="text-4xl sm:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
-                完全免費的託管<br />
-                <span class="text-slate-600 font-normal">只是節點穩定性.....</span>
+                <span data-i18n="hero_title_1">完全免費且24小時運行的託管</span><br />
+                <span class="text-slate-600 font-normal" data-i18n="hero_title_2">只是節點穩定性...</span>
             </h1>
 
-            <p class="text-slate-600 text-base sm:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
+            <p class="text-slate-600 text-base sm:text-lg max-w-2xl mx-auto mb-8 leading-relaxed" data-i18n="hero_desc">
                 專為開發者與玩家打造的託管平台。輕鬆部署 Python 、Node.js 服務、Java 應用與 Minecraft 伺服器，享多國節點
             </p>
 
             <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+                <a href="https://panel.wayne227304.dpdns.org/extensions/userregister" target="_blank" rel="noopener noreferrer" 
+                   class="w-full sm:w-auto px-6 py-3 rounded-lg bg-slate-900 text-white font-semibold text-sm hover:bg-slate-800 transition-all shadow-sm flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-user-plus text-sm"></i>
+                    <span data-i18n="hero_btn_register">自己申請</span>
+                </a>
                 <a href="https://panel.wayne227304.dpdns.org/go/discord" target="_blank" rel="noopener noreferrer" 
                    class="w-full sm:w-auto px-6 py-3 rounded-lg bg-slate-900 text-white font-semibold text-sm hover:bg-slate-800 transition-all shadow-sm flex items-center justify-center gap-2">
                     <i class="fa-brands fa-discord text-base"></i>
-                    <span>加入 Discord 免費領取主機</span>
+                    <span data-i18n="hero_btn_discord">加入 Discord 免費領取主機</span>
                 </a>
-                
                 <a href="#nodes" 
                    class="w-full sm:w-auto px-6 py-3 rounded-lg bg-white border border-slate-200 text-slate-700 font-semibold text-sm hover:bg-slate-50 transition-all flex items-center justify-center gap-2 shadow-sm">
                     <i class="fa-solid fa-chart-line text-slate-400"></i>
-                    <span>查看即時節點狀態</span>
+                    <span data-i18n="hero_btn_nodes">查看即時節點狀態</span>
                 </a>
             </div>
 
@@ -155,12 +169,12 @@
             
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-8">
                 <div>
-                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">可用節點</h2>
-                    <p class="text-slate-500 text-xs sm:text-sm mt-1">獨立多國節點，即時監控伺服器連線數據與線上狀態</p>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight" data-i18n="nodes_title">可用節點</h2>
+                    <p class="text-slate-500 text-xs sm:text-sm mt-1" data-i18n="nodes_subtitle">獨立多國節點，即時監控伺服器連線數據與線上狀態</p>
                 </div>
                 <div class="mt-4 md:mt-0 flex items-center gap-2 font-mono text-xs text-slate-500">
                     <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                    <span>每 30 秒自動更新</span>
+                    <span data-i18n="nodes_refresh">每 30 秒自動更新</span>
                 </div>
             </div>
 
@@ -170,12 +184,12 @@
                     <table class="w-full text-left border-collapse">
                         <thead>
                             <tr class="bg-slate-50/80 border-b border-slate-200 text-xs font-semibold text-slate-500 uppercase tracking-wider font-mono">
-                                <th class="py-3.5 px-4">區域</th>
-                                <th class="py-3.5 px-4">地理位置</th>
-                                <th class="py-3.5 px-4">支援環境</th>
-                                <th class="py-3.5 px-4">平均延遲</th>
-                                <th class="py-3.5 px-4">可用性</th>
-                                <th class="py-3.5 px-4 text-right">狀態</th>
+                                <th class="py-3.5 px-4" data-i18n="th_region">區域</th>
+                                <th class="py-3.5 px-4" data-i18n="th_location">地理位置</th>
+                                <th class="py-3.5 px-4" data-i18n="th_env">支援環境</th>
+                                <th class="py-3.5 px-4" data-i18n="th_latency">平均延遲</th>
+                                <th class="py-3.5 px-4" data-i18n="th_uptime">可用性</th>
+                                <th class="py-3.5 px-4 text-right" data-i18n="th_status">狀態</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-100 text-xs sm:text-sm">
@@ -185,15 +199,15 @@
                                 <td class="py-4 px-4 font-semibold text-slate-900 flex items-center gap-2.5">
                                     <span class="text-lg">🇹🇼</span>
                                 </td>
-                                <td class="py-4 px-4 text-slate-600 font-medium">台灣</td>
+                                <td class="py-4 px-4 text-slate-600 font-medium" data-i18n="loc_tw">台灣</td>
                                 <td class="py-4 px-4">
-                                    <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-mono border border-slate-200">全環境支援</span>
+                                    <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-mono border border-slate-200" data-i18n="env_all">全環境支援</span>
                                 </td>
                                 <td class="py-4 px-4 font-mono font-bold text-emerald-600">8 ms</td>
                                 <td class="py-4 px-4 font-mono text-slate-600">99.98%</td>
                                 <td class="py-4 px-4 text-right">
                                     <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-medium border border-emerald-200">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> 正常運作
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> <span data-i18n="status_online">正常運作</span>
                                     </span>
                                 </td>
                             </tr>
@@ -203,7 +217,7 @@
                                 <td class="py-4 px-4 font-semibold text-slate-900 flex items-center gap-2.5">
                                     <span class="text-lg">🇺🇸</span>
                                 </td>
-                                <td class="py-4 px-4 text-slate-600 font-medium">美國</td>
+                                <td class="py-4 px-4 text-slate-600 font-medium" data-i18n="loc_us">美國</td>
                                 <td class="py-4 px-4">
                                     <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-mono border border-slate-200">Python / Node / Java</span>
                                 </td>
@@ -211,7 +225,7 @@
                                 <td class="py-4 px-4 font-mono text-slate-600">99.95%</td>
                                 <td class="py-4 px-4 text-right">
                                     <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-medium border border-emerald-200">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> 正常運作
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> <span data-i18n="status_online">正常運作</span>
                                     </span>
                                 </td>
                             </tr>
@@ -221,7 +235,7 @@
                                 <td class="py-4 px-4 font-semibold text-slate-900 flex items-center gap-2.5">
                                     <span class="text-lg">🇲🇾</span>
                                 </td>
-                                <td class="py-4 px-4 text-slate-600 font-medium">馬來西亞</td>
+                                <td class="py-4 px-4 text-slate-600 font-medium" data-i18n="loc_my">馬來西亞</td>
                                 <td class="py-4 px-4">
                                     <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-mono border border-slate-200">Python / Node</span>
                                 </td>
@@ -229,7 +243,7 @@
                                 <td class="py-4 px-4 font-mono text-slate-600">99.90%</td>
                                 <td class="py-4 px-4 text-right">
                                     <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-medium border border-emerald-200">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> 正常運作
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> <span data-i18n="status_online">正常運作</span>
                                     </span>
                                 </td>
                             </tr>
@@ -240,10 +254,10 @@
 
                 <div class="bg-slate-50 p-4 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-2">
                     <div class="flex items-center gap-4">
-                        <span><i class="fa-solid fa-shield-halved text-slate-400 mr-1"></i> DDR3 . DDR4 快速記憶體</span>
-                        <span><i class="fa-solid fa-bolt text-slate-400 mr-1"></i> NVMe 高速固態硬碟</span>
+                        <span><i class="fa-solid fa-shield-halved text-slate-400 mr-1"></i> <span data-i18n="hw_ram">DDR3 . DDR4 快速記憶體</span></span>
+                        <span><i class="fa-solid fa-bolt text-slate-400 mr-1"></i> <span data-i18n="hw_ssd">NVMe 高速固態硬碟</span></span>
                     </div>
-                    <a href="https://panel.wayne227304.dpdns.org/go/discord" target="_blank" class="text-slate-900 font-semibold hover:underline">
+                    <a href="https://panel.wayne227304.dpdns.org/go/discord" target="_blank" class="text-slate-900 font-semibold hover:underline" data-i18n="nodes_apply">
                         申請開服配額 &rarr;
                     </a>
                 </div>
@@ -257,8 +271,8 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             
             <div class="mb-10 text-center max-w-2xl mx-auto">
-                <h2 class="text-2xl font-bold text-slate-900">完整支援熱門開發環境</h2>
-                <p class="text-slate-600 text-sm mt-2">開箱即用的開源 Console 面板，上傳檔案即可快速開服或發布程式</p>
+                <h2 class="text-2xl font-bold text-slate-900" data-i18n="runtimes_title">完整支援熱門開發環境</h2>
+                <p class="text-slate-600 text-sm mt-2" data-i18n="runtimes_subtitle">開箱即用的開源 Console 面板，上傳檔案即可快速開服或發布程式</p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
@@ -270,7 +284,7 @@
                         <div class="flex items-center gap-3">
                             <i class="fa-brands fa-python text-xl text-amber-500"></i>
                             <div>
-                                <div class="font-bold text-sm">Python 託管</div>
+                                <div class="font-bold text-sm" data-i18n="rt_python">Python 託管</div>
                                 <div class="text-xs text-slate-500 font-mono">discord.py, Flask, FastAPI</div>
                             </div>
                         </div>
@@ -281,7 +295,7 @@
                         <div class="flex items-center gap-3">
                             <i class="fa-brands fa-node-js text-xl text-emerald-600"></i>
                             <div>
-                                <div class="font-bold text-sm text-slate-900">Node.js 託管</div>
+                                <div class="font-bold text-sm text-slate-900" data-i18n="rt_node">Node.js 託管</div>
                                 <div class="text-xs text-slate-500 font-mono">discord.js, Express, NestJS</div>
                             </div>
                         </div>
@@ -292,7 +306,7 @@
                         <div class="flex items-center gap-3">
                             <i class="fa-brands fa-java text-xl text-red-500"></i>
                             <div>
-                                <div class="font-bold text-sm text-slate-900">Java 託管</div>
+                                <div class="font-bold text-sm text-slate-900" data-i18n="rt_java">Java 託管</div>
                                 <div class="text-xs text-slate-500 font-mono">JDK 8 / 17 / 21</div>
                             </div>
                         </div>
@@ -303,7 +317,7 @@
                         <div class="flex items-center gap-3">
                             <i class="fa-solid fa-cube text-xl text-green-600"></i>
                             <div>
-                                <div class="font-bold text-sm text-slate-900">Minecraft 伺服器</div>
+                                <div class="font-bold text-sm text-slate-900" data-i18n="rt_mc">Minecraft 伺服器</div>
                                 <div class="text-xs text-slate-500 font-mono">Paper, Spigot, Forge, Fabric</div>
                             </div>
                         </div>
@@ -336,8 +350,8 @@ async def on_ready():
 
 bot.run("YOUR_DISCORD_TOKEN")</code></pre>
                         <div class="pt-3 border-t border-slate-800 text-slate-400 flex items-center justify-between text-[11px]">
-                            <span>包管理：支援 requirements.txt 自動安裝</span>
-                            <span class="text-emerald-400">狀態：24/7 背景運作</span>
+                            <span data-i18n="code_py_pkg">包管理：支援 requirements.txt 自動安裝</span>
+                            <span class="text-emerald-400" data-i18n="code_status">狀態：24/7 背景運作</span>
                         </div>
                     </div>
 
@@ -358,8 +372,8 @@ client.once('ready', () => {
 
 client.login(process.env.DISCORD_TOKEN);</code></pre>
                         <div class="pt-3 border-t border-slate-800 text-slate-400 flex items-center justify-between text-[11px]">
-                            <span>包管理：支援 npm / yarn / pnpm</span>
-                            <span class="text-emerald-400">狀態：24/7 背景運作</span>
+                            <span data-i18n="code_node_pkg">包管理：支援 npm / yarn / pnpm</span>
+                            <span class="text-emerald-400" data-i18n="code_status">狀態：24/7 背景運作</span>
                         </div>
                     </div>
 
@@ -378,8 +392,8 @@ client.login(process.env.DISCORD_TOKEN);</code></pre>
     }
 }</code></pre>
                         <div class="pt-3 border-t border-slate-800 text-slate-400 flex items-center justify-between text-[11px]">
-                            <span>JVM 參數：自動配置記憶體優化旗標</span>
-                            <span class="text-emerald-400">狀態：24/7 背景運作</span>
+                            <span data-i18n="code_java_jvm">JVM 參數：自動配置記憶體優化旗標</span>
+                            <span class="text-emerald-400" data-i18n="code_status">狀態：24/7 背景運作</span>
                         </div>
                     </div>
 
@@ -398,8 +412,8 @@ motd=A Free Minecraft Server Powered by WayHost
 max-players=20
 view-distance=10</code></pre>
                         <div class="pt-3 border-t border-slate-800 text-slate-400 flex items-center justify-between text-[11px]">
-                            <span>檔案管理：提供 SFTP 傳輸權限與模組安裝</span>
-                            <span class="text-emerald-400">狀態：24/7 背景運作</span>
+                            <span data-i18n="code_mc_sftp">檔案管理：提供 SFTP 傳輸權限與模組安裝</span>
+                            <span class="text-emerald-400" data-i18n="code_status">狀態：24/7 背景運作</span>
                         </div>
                     </div>
 
@@ -415,8 +429,8 @@ view-distance=10</code></pre>
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             
             <div class="text-center max-w-2xl mx-auto mb-12">
-                <h2 class="text-2xl font-bold text-slate-900">為什麼選擇 WayHost？</h2>
-                <p class="text-slate-600 text-sm mt-1">我們剔除複雜的訂閱條款，為開發者提供乾淨、透明的免費雲端體驗。</p>
+                <h2 class="text-2xl font-bold text-slate-900" data-i18n="feat_title">為什麼選擇 WayHost？</h2>
+                <p class="text-slate-600 text-sm mt-1" data-i18n="feat_subtitle">我們剔除複雜的訂閱條款，為開發者提供乾淨、透明的免費雲端體驗。</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -425,8 +439,8 @@ view-distance=10</code></pre>
                     <div class="w-9 h-9 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-900 text-sm font-bold mb-4">
                         <i class="fa-solid fa-wallet"></i>
                     </div>
-                    <h3 class="font-bold text-slate-900 text-base mb-1.5">真正 100% 免費</h3>
-                    <p class="text-xs text-slate-600 leading-relaxed">
+                    <h3 class="font-bold text-slate-900 text-base mb-1.5" data-i18n="feat_1_title">真正 100% 免費</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed" data-i18n="feat_1_desc">
                         無需信用卡，沒有隱藏試用期或自動扣款。為個人專案、學生與社群玩家提供無負擔的主機。
                     </p>
                 </div>
@@ -435,8 +449,8 @@ view-distance=10</code></pre>
                     <div class="w-9 h-9 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-900 text-sm font-bold mb-4">
                         <i class="fa-solid fa-gauge-high"></i>
                     </div>
-                    <h3 class="font-bold text-slate-900 text-base mb-1.5">翼龍控制面板 (Pterodactyl)</h3>
-                    <p class="text-xs text-slate-600 leading-relaxed">
+                    <h3 class="font-bold text-slate-900 text-base mb-1.5" data-i18n="feat_2_title">翼龍控制面板 (Pterodactyl)</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed" data-i18n="feat_2_desc">
                         使用業界權威控制台。即時監控 CPU 與 RAM 資源使用率，輕鬆存取主機主控台與日誌。
                     </p>
                 </div>
@@ -445,8 +459,8 @@ view-distance=10</code></pre>
                     <div class="w-9 h-9 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-900 text-sm font-bold mb-4">
                         <i class="fa-brands fa-discord"></i>
                     </div>
-                    <h3 class="font-bold text-slate-900 text-base mb-1.5">Discord 技術支援社群</h3>
-                    <p class="text-xs text-slate-600 leading-relaxed">
+                    <h3 class="font-bold text-slate-900 text-base mb-1.5" data-i18n="feat_3_title">Discord 技術支援社群</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed" data-i18n="feat_3_desc">
                         遇到架設瓶頸？我們的社群擁有活躍的管理員與開發者夥伴，能夠隨時在 Discord 提供技術協助。
                     </p>
                 </div>
@@ -460,36 +474,36 @@ view-distance=10</code></pre>
     <section id="faq" class="py-16 bg-slate-50/50 border-b border-slate-200">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             
-            <h2 class="text-2xl font-bold text-slate-900 text-center mb-8">常見問題解答</h2>
+            <h2 class="text-2xl font-bold text-slate-900 text-center mb-8" data-i18n="faq_title">常見問題解答</h2>
 
             <div class="space-y-3">
                 
                 <details class="subtle-card rounded-xl p-4 cursor-pointer [&_summary::-webkit-details-marker]:hidden">
                     <summary class="flex items-center justify-between text-sm font-bold text-slate-900">
-                        <span>如何開始建立我的第一個免費伺服器？</span>
+                        <span data-i18n="faq_1_q">如何開始建立我的第一個免費伺服器？</span>
                         <i class="fa-solid fa-chevron-down text-xs text-slate-400"></i>
                     </summary>
-                    <p class="mt-3 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+                    <p class="mt-3 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-3" data-i18n="faq_1_a">
                         請點擊頁面上的「加入 Discord」按鈕進入 WayHost 官方社群。在 Discord 頻道中點擊開服指示完成驗證，即可自動取得控制面板帳號並部署資源。
                     </p>
                 </details>
 
                 <details class="subtle-card rounded-xl p-4 cursor-pointer [&_summary::-webkit-details-marker]:hidden">
                     <summary class="flex items-center justify-between text-sm font-bold text-slate-900">
-                        <span>伺服器節點有哪些限制？</span>
-                        <span class="text-xs font-mono text-slate-400">規章條款</span>
+                        <span data-i18n="faq_2_q">伺服器節點有哪些限制？</span>
+                        <span class="text-xs font-mono text-slate-400" data-i18n="faq_2_badge">規章條款</span>
                     </summary>
                     <p class="mt-3 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
-                        請查看服務條款 https://wayne227304.qzz.io/
+                        <span data-i18n="faq_2_a">請查看服務條款</span> <a href="https://wayne227304.qzz.io/" target="_blank" class="text-indigo-600 hover:underline">https://wayne227304.qzz.io/</a>
                     </p>
                 </details>
 
                 <details class="subtle-card rounded-xl p-4 cursor-pointer [&_summary::-webkit-details-marker]:hidden">
                     <summary class="flex items-center justify-between text-sm font-bold text-slate-900">
-                        <span>我可以上傳模組或安裝特定的 Pip / NPM 套件嗎？</span>
+                        <span data-i18n="faq_3_q">我可以上傳模組或安裝特定的 Pip / NPM 套件嗎？</span>
                         <i class="fa-solid fa-chevron-down text-xs text-slate-400"></i>
                     </summary>
-                    <p class="mt-3 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+                    <p class="mt-3 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-3" data-i18n="faq_3_a">
                         可以！您可以自由安裝第三方 Python / Node.js 庫，或是上傳 Minecraft 插件與 Mod 檔案。
                     </p>
                 </details>
@@ -506,14 +520,14 @@ view-distance=10</code></pre>
                 <div class="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-indigo-400 mx-auto mb-4">
                     <i class="fa-brands fa-discord text-lg"></i>
                 </div>
-                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight mb-3">準備好開啟您的伺服器了嗎？</h2>
-                <p class="text-slate-400 text-xs sm:text-sm max-w-lg mx-auto mb-6 leading-relaxed">
+                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight mb-3" data-i18n="cta_title">準備好開啟您的伺服器了嗎？</h2>
+                <p class="text-slate-400 text-xs sm:text-sm max-w-lg mx-auto mb-6 leading-relaxed" data-i18n="cta_desc">
                     加入 WayHost 官方 Discord 社群，立即領取 100% 完全免費的雲端託管資源。
                 </p>
                 <a href="https://panel.wayne227304.dpdns.org/go/discord" target="_blank" rel="noopener noreferrer"
                    class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white text-slate-900 font-bold text-xs sm:text-sm hover:bg-slate-100 transition-all shadow-sm active:scale-95">
                     <i class="fa-brands fa-discord text-indigo-600"></i>
-                    <span>立即加入 Discord 開服</span>
+                    <span data-i18n="cta_btn">立即加入 Discord 開服</span>
                 </a>
             </div>
         </div>
@@ -533,30 +547,257 @@ view-distance=10</code></pre>
         </div>
     </footer>
 
-    <!-- INTERACTIVE SCRIPT -->
+    <!-- INTERACTIVE & I18N SCRIPT -->
     <script>
         // Set dynamic copyright year
         document.getElementById('year').textContent = new Date().getFullYear();
 
         // Switch runtime tabs
         function switchRuntime(key) {
-            // Hide all content containers
             document.querySelectorAll('.runtime-content').forEach(el => el.classList.add('hidden'));
-            
-            // Reset button states
             document.querySelectorAll('.runtime-btn').forEach(btn => {
                 btn.classList.remove('border-slate-900', 'text-slate-900', 'shadow-sm');
                 btn.classList.add('border-slate-200', 'text-slate-600');
             });
 
-            // Show target content
             document.getElementById(`content-${key}`).classList.remove('hidden');
 
-            // Highlight target button
             const activeBtn = document.getElementById(`btn-${key}`);
             activeBtn.classList.remove('border-slate-200', 'text-slate-600');
             activeBtn.classList.add('border-slate-900', 'text-slate-900', 'shadow-sm');
         }
+
+        // Translation Dictionary
+        const translations = {
+            'zh-TW': {
+                page_title: 'WayHost | 100% 全免費託管',
+                top_banner_text: '無需信用卡，永久免費使用',
+                top_banner_cta: '加入 Discord 開服 →',
+                nav_nodes: '可用節點',
+                nav_runtimes: '支援環境',
+                nav_features: '服務特色',
+                nav_faq: '常見問題',
+                nav_discord: 'Discord 社群',
+                nav_create: '立即建立伺服器',
+                hero_status: '系統正常運作',
+                hero_title_1: '完全免費且24小時運行的託管',
+                hero_title_2: '只是節點穩定性...',
+                hero_desc: '專為開發者與玩家打造的託管平台。輕鬆部署 Python 、Node.js 服務、Java 應用與 Minecraft 伺服器，享多國節點',
+                hero_btn_register: '自己申請',
+                hero_btn_discord: '加入 Discord 免費領取主機',
+                hero_btn_nodes: '查看即時節點狀態',
+                nodes_title: '可用節點',
+                nodes_subtitle: '獨立多國節點，即時監控伺服器連線數據與線上狀態',
+                nodes_refresh: '每 30 秒自動更新',
+                th_region: '區域',
+                th_location: '地理位置',
+                th_env: '支援環境',
+                th_latency: '平均延遲',
+                th_uptime: '可用性',
+                th_status: '狀態',
+                loc_tw: '台灣',
+                loc_us: '美國',
+                loc_my: '馬來西亞',
+                env_all: '全環境支援',
+                status_online: '正常運作',
+                hw_ram: 'DDR3 . DDR4 快速記憶體',
+                hw_ssd: 'NVMe 高速固態硬碟',
+                nodes_apply: '申請開服配額 →',
+                runtimes_title: '完整支援熱門開發環境',
+                runtimes_subtitle: '開箱即用的開源 Console 面板，上傳檔案即可快速開服或發布程式',
+                rt_python: 'Python 託管',
+                rt_node: 'Node.js 託管',
+                rt_java: 'Java 託管',
+                rt_mc: 'Minecraft 伺服器',
+                code_py_pkg: '包管理：支援 requirements.txt 自動安裝',
+                code_node_pkg: '包管理：支援 npm / yarn / pnpm',
+                code_java_jvm: 'JVM 參數：自動配置記憶體優化旗標',
+                code_mc_sftp: '檔案管理：提供 SFTP 傳輸權限與模組安裝',
+                code_status: '狀態：24/7 背景運作',
+                feat_title: '為什麼選擇 WayHost？',
+                feat_subtitle: '我們剔除複雜的訂閱條款，為開發者提供乾淨、透明的免費雲端體驗。',
+                feat_1_title: '真正 100% 免費',
+                feat_1_desc: '無需信用卡，沒有隱藏試用期或自動扣款。為個人專案、學生與社群玩家提供無負擔的主機。',
+                feat_2_title: '翼龍控制面板 (Pterodactyl)',
+                feat_2_desc: '使用業界權威控制台。即時監控 CPU 與 RAM 資源使用率，輕鬆存取主機主控台與日誌。',
+                feat_3_title: 'Discord 技術支援社群',
+                feat_3_desc: '遇到架設瓶頸？我們的社群擁有活躍的管理員與開發者夥伴，能夠隨時在 Discord 提供技術協助。',
+                faq_title: '常見問題解答',
+                faq_1_q: '如何開始建立我的第一個免費伺服器？',
+                faq_1_a: '請點擊頁面上的「加入 Discord」按鈕進入 WayHost 官方社群。在 Discord 頻道中點擊開服指示完成驗證，即可自動取得控制面板帳號並部署資源。',
+                faq_2_q: '伺服器節點有哪些限制？',
+                faq_2_badge: '規章條款',
+                faq_2_a: '請查看服務條款',
+                faq_3_q: '我可以上傳模組或安裝特定的 Pip / NPM 套件嗎？',
+                faq_3_a: '可以！您可以自由安裝第三方 Python / Node.js 庫，或是上傳 Minecraft 插件與 Mod 檔案。',
+                cta_title: '準備好開啟您的伺服器了嗎？',
+                cta_desc: '加入 WayHost 官方 Discord 社群，立即領取 100% 完全免費的雲端託管資源。',
+                cta_btn: '立即加入 Discord 開服'
+            },
+            'zh-CN': {
+                page_title: 'WayHost | 100% 全免费托管',
+                top_banner_text: '无需信用卡，永久免费使用',
+                top_banner_cta: '加入 Discord 开服 →',
+                nav_nodes: '可用节点',
+                nav_runtimes: '支持环境',
+                nav_features: '服务特色',
+                nav_faq: '常见问题',
+                nav_discord: 'Discord 社区',
+                nav_create: '立即创建服务器',
+                hero_status: '系统正常运行',
+                hero_title_1: '完全免费且24小时运行的托管',
+                hero_title_2: '只是节点稳定性...',
+                hero_desc: '专为开发者与玩家打造的托管平台。轻松部署 Python 、Node.js 服务、Java 应用与 Minecraft 服务器，享多国节点',
+                hero_btn_register: '自助申请',
+                hero_btn_discord: '加入 Discord 免费领取主机',
+                hero_btn_nodes: '查看实时节点状态',
+                nodes_title: '可用节点',
+                nodes_subtitle: '独立多国节点，实时监控服务器连接数据与在线状态',
+                nodes_refresh: '每 30 秒自动更新',
+                th_region: '区域',
+                th_location: '地理位置',
+                th_env: '支持环境',
+                th_latency: '平均延迟',
+                th_uptime: '可用性',
+                th_status: '状态',
+                loc_tw: '台湾',
+                loc_us: '美国',
+                loc_my: '马来西亚',
+                env_all: '全环境支持',
+                status_online: '正常运行',
+                hw_ram: 'DDR3 . DDR4 快速内存',
+                hw_ssd: 'NVMe 高速固态硬盘',
+                nodes_apply: '申请开服配额 →',
+                runtimes_title: '完整支持热门开发环境',
+                runtimes_subtitle: '开箱即用的开源 Console 面板，上传文件即可快速开服或发布程序',
+                rt_python: 'Python 托管',
+                rt_node: 'Node.js 托管',
+                rt_java: 'Java 托管',
+                rt_mc: 'Minecraft 服务器',
+                code_py_pkg: '包管理：支持 requirements.txt 自动安装',
+                code_node_pkg: '包管理：支持 npm / yarn / pnpm',
+                code_java_jvm: 'JVM 参数：自动配置内存优化参数',
+                code_mc_sftp: '文件管理：提供 SFTP 传输权限与模组安装',
+                code_status: '状态：24/7 后台运行',
+                feat_title: '为什么选择 WayHost？',
+                feat_subtitle: '我们剔除复杂的订阅条款，为开发者提供干净、透明的免费云端体验。',
+                feat_1_title: '真正 100% 免费',
+                feat_1_desc: '无需信用卡，没有隐藏试用期或自动扣款。为个人项目、学生与社区玩家提供无负担的主机。',
+                feat_2_title: '翼龙控制面板 (Pterodactyl)',
+                feat_2_desc: '使用业界权威控制台。实时监控 CPU 与 RAM 资源使用率，轻松访问主机控制台与日志。',
+                feat_3_title: 'Discord 技术支持社区',
+                feat_3_desc: '遇到搭建瓶颈？我们的社区拥有活跃的管理员与开发者伙伴，能够随时在 Discord 提供技术协助。',
+                faq_title: '常见问题解答',
+                faq_1_q: '如何开始创建我的第一个免费服务器？',
+                faq_1_a: '请点击页面上的“加入 Discord”按钮进入 WayHost 官方社区。在 Discord 频道中点击开服指引完成验证，即可自动获取控制面板账号并部署资源。',
+                faq_2_q: '服务器节点有哪些限制？',
+                faq_2_badge: '规章条款',
+                faq_2_a: '请查看服务条款',
+                faq_3_q: '我可以上传模组或安装特定的 Pip / NPM 包吗？',
+                faq_3_a: '可以！您可以自由安装第三方 Python / Node.js 库，或是上传 Minecraft 插件与 Mod 文件。',
+                cta_title: '准备好开启您的服务器了吗？',
+                cta_desc: '加入 WayHost 官方 Discord 社区，立即领取 100% 完全免费的云端托管资源。',
+                cta_btn: '立即加入 Discord 开服'
+            },
+            'en': {
+                page_title: 'WayHost | 100% Free Hosting',
+                top_banner_text: 'No credit card required, free forever',
+                top_banner_cta: 'Join Discord to Deploy →',
+                nav_nodes: 'Nodes',
+                nav_runtimes: 'Runtimes',
+                nav_features: 'Features',
+                nav_faq: 'FAQ',
+                nav_discord: 'Discord',
+                nav_create: 'Create Server',
+                hero_status: 'All Systems Operational',
+                hero_title_1: '100% Free 24/7 Cloud Hosting',
+                hero_title_2: 'Well, about node stability...',
+                hero_desc: 'Built for developers and gamers. Easily deploy Python, Node.js, Java apps, and Minecraft servers across global nodes.',
+                hero_btn_register: 'Self Register',
+                hero_btn_discord: 'Join Discord for Free Host',
+                hero_btn_nodes: 'View Live Node Status',
+                nodes_title: 'Available Nodes',
+                nodes_subtitle: 'Dedicated multi-region nodes with real-time latency and uptime monitoring',
+                nodes_refresh: 'Auto-updates every 30s',
+                th_region: 'Region',
+                th_location: 'Location',
+                th_env: 'Supported Environments',
+                th_latency: 'Avg. Latency',
+                th_uptime: 'Uptime',
+                th_status: 'Status',
+                loc_tw: 'Taiwan',
+                loc_us: 'United States',
+                loc_my: 'Malaysia',
+                env_all: 'All Environments',
+                status_online: 'Operational',
+                hw_ram: 'DDR3 / DDR4 High-Speed RAM',
+                hw_ssd: 'NVMe High-Speed SSD',
+                nodes_apply: 'Request Server Quota →',
+                runtimes_title: 'Full Support for Popular Runtimes',
+                runtimes_subtitle: 'Out-of-the-box open-source console panel. Upload your files and launch in seconds.',
+                rt_python: 'Python Hosting',
+                rt_node: 'Node.js Hosting',
+                rt_java: 'Java Hosting',
+                rt_mc: 'Minecraft Server',
+                code_py_pkg: 'Packages: Auto-install via requirements.txt',
+                code_node_pkg: 'Packages: Supports npm / yarn / pnpm',
+                code_java_jvm: 'JVM Flags: Pre-configured memory optimization',
+                code_mc_sftp: 'File Manager: Full SFTP access & mod support',
+                code_status: 'Status: 24/7 Background Uptime',
+                feat_title: 'Why Choose WayHost?',
+                feat_subtitle: 'No complicated subscriptions. Just a clean, transparent, and free cloud experience.',
+                feat_1_title: 'Truly 100% Free',
+                feat_1_desc: 'No credit card, hidden trials, or surprise charges. Hassle-free hosting for personal projects, students, and gamers.',
+                feat_2_title: 'Pterodactyl Panel',
+                feat_2_desc: 'Industry-standard control panel. Monitor CPU & RAM in real time and access console logs effortlessly.',
+                feat_3_title: 'Discord Support Community',
+                feat_3_desc: 'Need help setting up? Our active admins and developer community are ready to assist you on Discord.',
+                faq_title: 'Frequently Asked Questions',
+                faq_1_q: 'How do I create my first free server?',
+                faq_1_a: 'Click the "Join Discord" button to enter the official WayHost community. Follow the verification instructions in the channel to get your panel account and deploy resources.',
+                faq_2_q: 'What are the node restrictions?',
+                faq_2_badge: 'Terms',
+                faq_2_a: 'Please review our Terms of Service at',
+                faq_3_q: 'Can I upload mods or install custom Pip / NPM packages?',
+                faq_3_a: 'Yes! You can freely install third-party Python/Node.js packages or upload Minecraft plugins and mods.',
+                cta_title: 'Ready to launch your server?',
+                cta_desc: 'Join the official WayHost Discord community and claim your 100% free cloud hosting resources today.',
+                cta_btn: 'Join Discord Now'
+            }
+        };
+
+        function changeLanguage(lang) {
+            const dict = translations[lang] || translations['zh-TW'];
+            document.documentElement.lang = lang;
+            document.title = dict.page_title;
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) {
+                    el.textContent = dict[key];
+                }
+            });
+
+            localStorage.setItem('wayhost_lang', lang);
+        }
+
+        // Initialize language on page load
+        (function initLanguage() {
+            const savedLang = localStorage.getItem('wayhost_lang');
+            if (savedLang && translations[savedLang]) {
+                document.getElementById('lang-select').value = savedLang;
+                changeLanguage(savedLang);
+            } else {
+                const browserLang = navigator.language || navigator.userLanguage;
+                if (browserLang.startsWith('en')) {
+                    document.getElementById('lang-select').value = 'en';
+                    changeLanguage('en');
+                } else if (browserLang.toLowerCase().includes('cn') || browserLang.toLowerCase().includes('hans')) {
+                    document.getElementById('lang-select').value = 'zh-CN';
+                    changeLanguage('zh-CN');
+                }
+            }
+        })();
     </script>
 </body>
 </html>
