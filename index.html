@@ -730,14 +730,15 @@ view-distance=10</code></pre>
             }
         };
 
+        // ===== 即時節點狀態 (Uptime Kuma badge API) =====
         const BADGE_BASE = 'https://status.wayhost.cc.cd/api/badge/';
         const NODES = [
             { id: 6,  flag: '🇹🇼', loc: 'loc_tw', env: 'env_all' },
             { id: 7,  flag: '🇲🇾', loc: 'loc_my', env: 'Python / Node' },
             { id: 8,  flag: '🇺🇸', loc: 'loc_us', env: 'Python / Node / Java' },
-            { id: 10, flag: '🇦🇺', loc: 'loc_au', env: 'Python / Node' }
+            { id: 10, flag: '🇦🇺', loc: 'loc_au', env: 'env_all' }
         ];
-        let nodeResults = {};
+        let nodeResults = {}; // id -> {status, ping, uptime} | {error:true}
 
         function tr(key) {
             const dict = translations[document.documentElement.lang] || translations['zh-TW'];
@@ -768,7 +769,7 @@ view-distance=10</code></pre>
         function statusPill(n) {
             const r = nodeResults[n.id];
             if (!r) return `<span class="text-slate-400">${tr('status_checking')}</span>`;
-            if (r.error)
+            if (r.error) // CORS 被擋時退回直接顯示 badge 圖片
                 return `<img src="${BADGE_BASE}${n.id}/status?t=${Date.now()}" alt="status" class="inline-block h-5">`;
             const map = {
                 up:          ['emerald', tr('status_online')],
@@ -853,6 +854,7 @@ view-distance=10</code></pre>
             }
         })();
 
+        // 啟動即時狀態抓取，每 30 秒更新
         refreshNodes();
         setInterval(refreshNodes, 30000);
     </script>
