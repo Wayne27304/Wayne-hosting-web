@@ -128,10 +128,10 @@
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-slate-200 text-xs font-medium text-slate-600 mb-6 shadow-sm">
-                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                <span data-i18n="hero_status">系統正常運作</span>
+                <span id="hero-status-dot" class="w-2 h-2 rounded-full bg-slate-300"></span>
+                <span id="hero-status-text" data-i18n="status_checking">載入中…</span>
                 <span class="text-slate-300">|</span>
-                <span class="font-mono text-slate-900 font-semibold">Taiwan • US • Malaysia</span>
+                <span class="font-mono text-slate-900 font-semibold">Taiwan • US • Malaysia • Australia</span>
             </div>
 
             <h1 class="text-4xl sm:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
@@ -193,63 +193,8 @@
                                 <th class="py-3.5 px-4 text-right" data-i18n="th_status">狀態</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-slate-100 text-xs sm:text-sm">
-                            
-                            <!-- TW Node -->
-                            <tr class="hover:bg-slate-50/60 transition-colors">
-                                <td class="py-4 px-4 font-semibold text-slate-900 flex items-center gap-2.5">
-                                    <span class="text-lg">🇹🇼</span>
-                                </td>
-                                <td class="py-4 px-4 text-slate-600 font-medium" data-i18n="loc_tw">台灣</td>
-                                <td class="py-4 px-4">
-                                    <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-mono border border-slate-200" data-i18n="env_all">全環境支援</span>
-                                </td>
-                                <td class="py-4 px-4 font-mono font-bold text-emerald-600">8 ms</td>
-                                <td class="py-4 px-4 font-mono text-slate-600">99.98%</td>
-                                <td class="py-4 px-4 text-right">
-                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-medium border border-emerald-200">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> <span data-i18n="status_online">正常運作</span>
-                                    </span>
-                                </td>
-                            </tr>
-
-                            <!-- US Node -->
-                            <tr class="hover:bg-slate-50/60 transition-colors">
-                                <td class="py-4 px-4 font-semibold text-slate-900 flex items-center gap-2.5">
-                                    <span class="text-lg">🇺🇸</span>
-                                </td>
-                                <td class="py-4 px-4 text-slate-600 font-medium" data-i18n="loc_us">美國</td>
-                                <td class="py-4 px-4">
-                                    <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-mono border border-slate-200">Python / Node / Java</span>
-                                </td>
-                                <td class="py-4 px-4 font-mono font-bold text-slate-700">145 ms</td>
-                                <td class="py-4 px-4 font-mono text-slate-600">99.95%</td>
-                                <td class="py-4 px-4 text-right">
-                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-medium border border-emerald-200">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> <span data-i18n="status_online">正常運作</span>
-                                    </span>
-                                </td>
-                            </tr>
-
-                            <!-- MY Node -->
-                            <tr class="hover:bg-slate-50/60 transition-colors">
-                                <td class="py-4 px-4 font-semibold text-slate-900 flex items-center gap-2.5">
-                                    <span class="text-lg">🇲🇾</span>
-                                </td>
-                                <td class="py-4 px-4 text-slate-600 font-medium" data-i18n="loc_my">馬來西亞</td>
-                                <td class="py-4 px-4">
-                                    <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-mono border border-slate-200">Python / Node</span>
-                                </td>
-                                <td class="py-4 px-4 font-mono font-bold text-emerald-600">42 ms</td>
-                                <td class="py-4 px-4 font-mono text-slate-600">99.90%</td>
-                                <td class="py-4 px-4 text-right">
-                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-medium border border-emerald-200">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> <span data-i18n="status_online">正常運作</span>
-                                    </span>
-                                </td>
-                            </tr>
-
-                        </tbody>
+                        <!-- 由 JS 從 Uptime Kuma badge API 即時填入 -->
+                        <tbody id="nodes-body" class="divide-y divide-slate-100 text-xs sm:text-sm"></tbody>
                     </table>
                 </div>
 
@@ -542,7 +487,7 @@ view-distance=10</code></pre>
                 <span>© <span id="year"></span> Free Hosting Service. All rights reserved.</span>
             </div>
             <div class="flex items-center gap-4">
-                <a href="#nodes" class="hover:text-slate-800 transition-colors">Nodes (TW/US/MY)</a>
+                <a href="#nodes" class="hover:text-slate-800 transition-colors">Nodes (TW/US/MY/AU)</a>
                 <a href="https://panel.wayhost.cc.cd/go/discord" target="_blank" class="text-indigo-600 hover:underline font-semibold">Discord Server</a>
             </div>
         </div>
@@ -581,6 +526,7 @@ view-distance=10</code></pre>
                 nav_discord: 'Discord 社群',
                 nav_create: '立即建立伺服器',
                 hero_status: '系統正常運作',
+                hero_status_issue: '部分節點異常',
                 hero_title_1: '完全免費且24小時運行的託管',
                 hero_title_2: '只是節點穩定性...',
                 hero_desc: '專為開發者與玩家打造的託管平台。輕鬆部署 Python 、Node.js 服務、Java 應用與 Minecraft 伺服器，享多國節點',
@@ -599,8 +545,13 @@ view-distance=10</code></pre>
                 loc_tw: '台灣',
                 loc_us: '美國',
                 loc_my: '馬來西亞',
+                loc_au: '澳洲',
                 env_all: '全環境支援',
                 status_online: '正常運作',
+                status_offline: '離線',
+                status_pending: '檢查中',
+                status_maint: '維護中',
+                status_checking: '載入中…',
                 hw_ram: 'DDR3 . DDR4 快速記憶體',
                 hw_ssd: 'NVMe 高速固態硬碟',
                 nodes_apply: '申請開服配額 →',
@@ -646,6 +597,7 @@ view-distance=10</code></pre>
                 nav_discord: 'Discord 社区',
                 nav_create: '立即创建服务器',
                 hero_status: '系统正常运行',
+                hero_status_issue: '部分节点异常',
                 hero_title_1: '完全免费且24小时运行的托管',
                 hero_title_2: '只是节点稳定性...',
                 hero_desc: '专为开发者与玩家打造的托管平台。轻松部署 Python 、Node.js 服务、Java 应用与 Minecraft 服务器，享多国节点',
@@ -664,8 +616,13 @@ view-distance=10</code></pre>
                 loc_tw: '台湾',
                 loc_us: '美国',
                 loc_my: '马来西亚',
+                loc_au: '澳大利亚',
                 env_all: '全环境支持',
                 status_online: '正常运行',
+                status_offline: '离线',
+                status_pending: '检查中',
+                status_maint: '维护中',
+                status_checking: '加载中…',
                 hw_ram: 'DDR3 . DDR4 快速内存',
                 hw_ssd: 'NVMe 高速固态硬盘',
                 nodes_apply: '申请开服配额 →',
@@ -711,6 +668,7 @@ view-distance=10</code></pre>
                 nav_discord: 'Discord',
                 nav_create: 'Create Server',
                 hero_status: 'All Systems Operational',
+                hero_status_issue: 'Some Nodes Degraded',
                 hero_title_1: '100% Free 24/7 Cloud Hosting',
                 hero_title_2: 'Well, about node stability...',
                 hero_desc: 'Built for developers and gamers. Easily deploy Python, Node.js, Java apps, and Minecraft servers across global nodes.',
@@ -729,8 +687,13 @@ view-distance=10</code></pre>
                 loc_tw: 'Taiwan',
                 loc_us: 'United States',
                 loc_my: 'Malaysia',
+                loc_au: 'Australia',
                 env_all: 'All Environments',
                 status_online: 'Operational',
+                status_offline: 'Offline',
+                status_pending: 'Checking',
+                status_maint: 'Maintenance',
+                status_checking: 'Loading…',
                 hw_ram: 'DDR3 / DDR4 High-Speed RAM',
                 hw_ssd: 'NVMe High-Speed SSD',
                 nodes_apply: 'Request Server Quota →',
@@ -767,6 +730,93 @@ view-distance=10</code></pre>
             }
         };
 
+        const BADGE_BASE = 'https://status.wayhost.cc.cd/api/badge/';
+        const NODES = [
+            { id: 6,  flag: '🇹🇼', loc: 'loc_tw', env: 'env_all' },
+            { id: 7,  flag: '🇲🇾', loc: 'loc_my', env: 'Python / Node' },
+            { id: 8,  flag: '🇺🇸', loc: 'loc_us', env: 'Python / Node / Java' },
+            { id: 10, flag: '🇦🇺', loc: 'loc_au', env: 'Python / Node' }
+        ];
+        let nodeResults = {};
+
+        function tr(key) {
+            const dict = translations[document.documentElement.lang] || translations['zh-TW'];
+            return dict[key] || key;
+        }
+
+        async function badgeValue(url) {
+            const res = await fetch(url, { cache: 'no-store' });
+            if (!res.ok) throw new Error(res.status);
+            const doc = new DOMParser().parseFromString(await res.text(), 'image/svg+xml');
+            const texts = [...doc.querySelectorAll('text')].map(t => t.textContent.trim()).filter(Boolean);
+            return texts[texts.length - 1] || '';
+        }
+
+        async function fetchNode(n) {
+            try {
+                const [status, ping, uptime] = await Promise.all([
+                    badgeValue(`${BADGE_BASE}${n.id}/status`),
+                    badgeValue(`${BADGE_BASE}${n.id}/ping/24`).catch(() => '—'),
+                    badgeValue(`${BADGE_BASE}${n.id}/uptime/24`).catch(() => '—')
+                ]);
+                nodeResults[n.id] = { status: status.toLowerCase(), ping, uptime };
+            } catch (e) {
+                nodeResults[n.id] = { error: true };
+            }
+        }
+
+        function statusPill(n) {
+            const r = nodeResults[n.id];
+            if (!r) return `<span class="text-slate-400">${tr('status_checking')}</span>`;
+            if (r.error)
+                return `<img src="${BADGE_BASE}${n.id}/status?t=${Date.now()}" alt="status" class="inline-block h-5">`;
+            const map = {
+                up:          ['emerald', tr('status_online')],
+                down:        ['red',     tr('status_offline')],
+                pending:     ['amber',   tr('status_pending')],
+                maintenance: ['sky',     tr('status_maint')]
+            };
+            const [c, label] = map[r.status] || ['slate', r.status || '?'];
+            return `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-${c}-50 text-${c}-700 text-xs font-medium border border-${c}-200">
+                <span class="w-1.5 h-1.5 rounded-full bg-${c}-500"></span>${label}</span>`;
+        }
+
+        function renderNodes() {
+            const zh = translations['zh-TW'];
+            document.getElementById('nodes-body').innerHTML = NODES.map(n => {
+                const r = nodeResults[n.id] || {};
+                const env = zh[n.env] ? tr(n.env) : n.env;
+                const ping = r.ping || '—', up = r.uptime || '—';
+                return `<tr class="hover:bg-slate-50/60 transition-colors">
+                    <td class="py-4 px-4 text-lg">${n.flag}</td>
+                    <td class="py-4 px-4 text-slate-600 font-medium">${tr(n.loc)}</td>
+                    <td class="py-4 px-4"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-mono border border-slate-200">${env}</span></td>
+                    <td class="py-4 px-4 font-mono font-bold text-slate-700">${ping}</td>
+                    <td class="py-4 px-4 font-mono text-slate-600">${up}</td>
+                    <td class="py-4 px-4 text-right">${statusPill(n)}</td>
+                </tr>`;
+            }).join('');
+
+            // 頂部系統狀態徽章同步
+            const done = NODES.every(n => nodeResults[n.id]);
+            const allUp = done && NODES.every(n => nodeResults[n.id].status === 'up');
+            const textEl = document.getElementById('hero-status-text');
+            const dotEl = document.getElementById('hero-status-dot');
+            let key = 'status_checking', dot = 'bg-slate-300';
+            if (done) {
+                key = allUp ? 'hero_status' : 'hero_status_issue';
+                dot = allUp ? 'bg-emerald-500' : 'bg-amber-500';
+            }
+            textEl.setAttribute('data-i18n', key);
+            textEl.textContent = tr(key);
+            dotEl.className = `w-2 h-2 rounded-full ${dot}`;
+        }
+
+        async function refreshNodes() {
+            await Promise.all(NODES.map(fetchNode));
+            renderNodes();
+        }
+
         function changeLanguage(lang) {
             const dict = translations[lang] || translations['zh-TW'];
             document.documentElement.lang = lang;
@@ -779,6 +829,7 @@ view-distance=10</code></pre>
                 }
             });
 
+            renderNodes();
             localStorage.setItem('wayhost_lang', lang);
         }
 
@@ -796,9 +847,14 @@ view-distance=10</code></pre>
                 } else if (browserLang.toLowerCase().includes('cn') || browserLang.toLowerCase().includes('hans')) {
                     document.getElementById('lang-select').value = 'zh-CN';
                     changeLanguage('zh-CN');
+                } else {
+                    renderNodes();
                 }
             }
         })();
+
+        refreshNodes();
+        setInterval(refreshNodes, 30000);
     </script>
 </body>
 </html>
