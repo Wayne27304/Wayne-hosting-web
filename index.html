@@ -170,7 +170,7 @@
             
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-8">
                 <div>
-                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight" data-i18n="nodes_title">可用節點 (或者查看 status.wayhost.cc.cd/status/hosting</h2>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight" data-i18n="nodes_title">可用節點</h2>
                     <p class="text-slate-500 text-xs sm:text-sm mt-1" data-i18n="nodes_subtitle">獨立多國節點，即時監控伺服器連線數據與線上狀態</p>
                 </div>
                 <div class="mt-4 md:mt-0 flex items-center gap-2 font-mono text-xs text-slate-500">
@@ -533,7 +533,7 @@ view-distance=10</code></pre>
                 hero_btn_register: '自己申請 (暫不可用)',
                 hero_btn_discord: '加入 Discord 免費領取主機',
                 hero_btn_nodes: '查看即時節點狀態',
-                nodes_title: '可用節點 (或者查看 status.wayhost.cc.cd/status/hosting)',
+                nodes_title: '可用節點',
                 nodes_subtitle: '獨立多國節點，即時監控伺服器連線數據與線上狀態',
                 nodes_refresh: '每 30 秒自動更新',
                 th_region: '區域',
@@ -604,7 +604,7 @@ view-distance=10</code></pre>
                 hero_btn_register: '自助申请 (暂时不可用)',
                 hero_btn_discord: '加入 Discord 免费领取主机',
                 hero_btn_nodes: '查看实时节点状态',
-                nodes_title: '可用节点 (或者查看 status.wayhost.cc.cd/status/hosting )',
+                nodes_title: '可用节点',
                 nodes_subtitle: '独立多国节点，实时监控服务器连接数据与在线状态',
                 nodes_refresh: '每 30 秒自动更新',
                 th_region: '区域',
@@ -675,7 +675,7 @@ view-distance=10</code></pre>
                 hero_btn_register: 'Self Register (Temporarily unavailable)',
                 hero_btn_discord: 'Join Discord for Free Host',
                 hero_btn_nodes: 'View Live Node Status',
-                nodes_title: 'Available Nodes (or see status.wayhost.cc.cd/status/hosting)',
+                nodes_title: 'Available Nodes',
                 nodes_subtitle: 'Dedicated multi-region nodes with real-time latency and uptime monitoring',
                 nodes_refresh: 'Auto-updates every 30s',
                 th_region: 'Region',
@@ -733,7 +733,8 @@ view-distance=10</code></pre>
         // ===== 即時節點狀態 (Uptime Kuma badge API) =====
         const BADGE_BASE = 'https://status.wayhost.cc.cd/api/badge/';
         const NODES = [
-            { id: 6,  flag: '🇹🇼', loc: 'loc_tw', env: 'env_all' },
+            { id: 6,  flag: '🇹🇼', loc: 'loc_tw', env: 'env_all', suffix: ' #1' },
+            { id: 11, flag: '🇹🇼', loc: 'loc_tw', env: 'env_all', suffix: ' #2' },
             { id: 7,  flag: '🇲🇾', loc: 'loc_my', env: 'Python / Node' },
             { id: 8,  flag: '🇺🇸', loc: 'loc_us', env: 'Python / Node / Java' },
             { id: 10, flag: '🇦🇺', loc: 'loc_au', env: 'env_all' }
@@ -790,7 +791,7 @@ view-distance=10</code></pre>
                 const ping = r.ping || '—', up = r.uptime || '—';
                 return `<tr class="hover:bg-slate-50/60 transition-colors">
                     <td class="py-4 px-4 text-lg">${n.flag}</td>
-                    <td class="py-4 px-4 text-slate-600 font-medium">${tr(n.loc)}</td>
+                    <td class="py-4 px-4 text-slate-600 font-medium">${tr(n.loc)}${n.suffix || ''}</td>
                     <td class="py-4 px-4"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-mono border border-slate-200">${env}</span></td>
                     <td class="py-4 px-4 font-mono font-bold text-slate-700">${ping}</td>
                     <td class="py-4 px-4 font-mono text-slate-600">${up}</td>
